@@ -46,9 +46,7 @@ const Button = styled.div`
 `;
 
 function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
-  useEffect(() => {
-    checkSessionRequest();
-  }, []);
+  useEffect(() => {}, []);
   const toastOnLogout = () => toast('로그아웃 되었습니다.');
   const onLogout = (e) => {
     kakaoLogoutRequest().then(() => {
@@ -77,7 +75,7 @@ function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.user.status.isLoggedIn,
+    isLoggedIn: state.kakaoAuth.status.isLoggedIn,
   };
 };
 

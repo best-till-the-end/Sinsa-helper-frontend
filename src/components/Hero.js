@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import KakaoAuth from './user/KakaoAuth';
 
 const Section = styled.section`
   background: black;
@@ -53,13 +54,12 @@ function Hero() {
         <Left>
           <Title>
             쇼핑몰 리뷰 Text Mining <br /> 상품 추천 서비스
-            <hr />
           </Title>
           <Desc>
             사용자들이 직접적으로 사용하고 느낀 리뷰를 Ai 모델을 통해 분석하여
             <br />좀 더 쉽게 원하는 타입의 상품을 검색하고 구입하게 한 사이트
           </Desc>
-          <Button href="/SignUp">카카오로 로그인하기</Button>
+          <KakaoAuth />
         </Left>
       </Content>
     </Section>

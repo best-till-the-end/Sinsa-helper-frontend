@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import kakaoAuth from './user/reducer';
+import kakaoAuth from './kakaoAuth/reducer';
 
 const rootReducer = combineReducers({
   kakaoAuth: kakaoAuth,

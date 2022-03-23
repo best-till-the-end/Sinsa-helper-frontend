@@ -2,6 +2,7 @@ import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import KakaoAuthTokenHandler from './components/user/KakaoAuthTokenHandler';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Hero />} />
-        {/* <Route path="/kakaoAuth" element={} /> */}
+        <Route path="/kakaoAuth" element={KakaoAuthTokenHandler} />
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

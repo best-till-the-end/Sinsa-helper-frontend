@@ -2,4 +2,4 @@ export {
   kakaoAuthRequest,
   kakaoLogoutRequest,
   checkSessionRequest,
-} from './user/actions';
+} from './kakaoAuth/actions';
