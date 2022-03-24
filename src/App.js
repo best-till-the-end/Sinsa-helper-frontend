@@ -1,4 +1,4 @@
-import Hero from './components/Hero';
+import Main from './components/Main';
 import Navbar from './components/Navbar';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -9,8 +9,8 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/kakaoAuth" element={KakaoAuthTokenHandler} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/kakaoAuth" element={<KakaoAuthTokenHandler />} />
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

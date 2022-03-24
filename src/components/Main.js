@@ -47,7 +47,7 @@ const Button = styled.a`
   text-decoration: none;
   box-shadow: 0 15px 14px rgb(0 42 177 / 12 %);
 `;
-function Hero() {
+function Main() {
   return (
     <Section>
       <Content>
@@ -66,4 +66,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default Main;
