@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { kakaoLogoutRequest, checkSessionRequest } from '../redux';
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -47,6 +48,7 @@ const Button = styled.div`
 
 function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
   useEffect(() => {}, []);
+  const navigate = useNavigate();
   const toastOnLogout = () => toast('로그아웃 되었습니다.');
   const onLogout = (e) => {
     kakaoLogoutRequest().then(() => {
@@ -54,11 +56,14 @@ function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
       window.location.replace('/');
     });
   };
+  const onClick = () => {
+    navigate('/');
+  };
 
   return (
     <NavbarContainer>
       <NavbarWrap>
-        <Title>유종의 ME</Title>
+        <Title onClick={onClick}>유종의 ME</Title>
         {isLoggedIn ? (
           <ButtonContainer>
             <Button href="/MyPage"> My Page </Button>
