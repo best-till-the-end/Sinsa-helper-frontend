@@ -4,7 +4,9 @@ import subData from './subData';
 
 const initialState = {
   data: {
-    current: { mainData },
+    current: {
+      mainData,
+    },
   },
   status: {
     isMainCategoryChoose: false,
@@ -20,7 +22,7 @@ export default function category(state = initialState, action) {
       return {
         ...state,
         data: {
-          current: subData,
+          current: { subData },
         },
         status: {
           isMainCategoryChoose: true,

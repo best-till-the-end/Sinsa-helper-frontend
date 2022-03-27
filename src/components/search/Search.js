@@ -10,20 +10,41 @@ const Section = styled.section`
 `;
 const ExButton = styled.button`
   position: absolute;
-  top: 50px;
+  top: 500px;
   background: white;
   height: 10px;
 `;
+const MainCategory = styled.div`
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  column-count: 3;
+  -webkit-column-width: 33%;
+  -moz-column-width: 33%;
+  padding: 0 12px;
+`;
+const Picture = styled.div``;
 function Search({ data }) {
   const dispatch = useDispatch();
   const handleData = async () => {
     dispatch(mainChoose());
     console.log(data);
   };
+
+  let currentData = data.mainData;
+  const mainCategory = (
+    <MainCategory>
+      {data.mainData.map((item, index) => {
+        return (
+          <Picture key={index}>
+            <img src={item.imageUrl} style={{ width: '100%' }} />
+          </Picture>
+        );
+      })}
+    </MainCategory>
+  );
   return (
     <div>
-      <Section>{console.log(data)}</Section>
-      <ExButton onClick={handleData}>예</ExButton>
+      <Section>{mainCategory}</Section>
     </div>
   );
 }
