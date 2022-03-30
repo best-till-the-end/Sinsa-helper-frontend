@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { mainChoose, subChoose } from '../../redux';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
+const smoodhAppear = keyframes`
+
+`;
 const Section = styled.section`
   background: black;
   height: 100vh;
@@ -14,6 +17,12 @@ const ExButton = styled.button`
   background: white;
   height: 10px;
 `;
+const Title = styled.h1`
+  text-align: center;
+  color: white;
+  padding: 0 10px;
+  margin-bottom: 10px;
+`;
 const MainCategory = styled.div`
   -webkit-column-count: 3;
   -moz-column-count: 3;
@@ -22,7 +31,13 @@ const MainCategory = styled.div`
   -moz-column-width: 33%;
   padding: 0 12px;
 `;
-const Picture = styled.div``;
+const Picture = styled.div`
+  -webkit-transition: all 350ms ease;
+  transition: all 350ms ease;
+  cursor: pointer;
+  margin-bottom: 12px;
+  filter: brightness(50%);
+`;
 function Search({ data }) {
   const dispatch = useDispatch();
   const handleData = async () => {
@@ -32,15 +47,18 @@ function Search({ data }) {
 
   let currentData = data.mainData;
   const mainCategory = (
-    <MainCategory>
-      {data.mainData.map((item, index) => {
-        return (
-          <Picture key={index}>
-            <img src={item.imageUrl} style={{ width: '100%' }} />
-          </Picture>
-        );
-      })}
-    </MainCategory>
+    <div>
+      <Title>대분류</Title>
+      <MainCategory>
+        {data.mainData.map((item, index) => {
+          return (
+            <Picture key={index}>
+              <img src={item.imageUrl} style={{ width: '100%' }} />
+            </Picture>
+          );
+        })}
+      </MainCategory>
+    </div>
   );
   return (
     <div>
