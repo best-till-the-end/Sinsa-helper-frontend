@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import KakaoAuth from './user/KakaoAuth';
 import { useNavigate } from 'react-router-dom';
+import OAuth from './user/OAuth';
 
 const Section = styled.section`
   background: black;
@@ -66,7 +67,8 @@ function Main() {
             <br />좀 더 쉽게 원하는 타입의 상품을 검색하고 구입하게 한 사이트
           </Desc>
           {/* <KakaoAuth /> */}
-          <Button onClick={onClick}>검색하러 가기</Button>
+          {/* <Button onClick={onClick}>검색하러 가기</Button> */}
+          <OAuth />
         </Left>
       </Content>
     </Section>
