@@ -1,12 +1,12 @@
 import * as types from './types';
 import mainData from './mainData';
-import { outer } from './subData';
+import { outer, top, pants } from './subData';
+import { useState } from 'react';
+import { FreeBreakfastOutlined } from '@material-ui/icons';
 
 const initialState = {
   data: {
-    current: {
-      mainData,
-    },
+    current: mainData,
   },
   status: {
     isMainCategoryChoose: false,
@@ -18,13 +18,27 @@ export default function category(state = initialState, action) {
   switch (action.type) {
     case types.MAIN_CATEGORY_CHOOSE:
       console.log('main choose');
-      console.log(initialState);
-      console.log(outer);
+      console.log(action.title);
+      let sub;
+      switch (action.title) {
+        case 'outer':
+          sub = outer;
+          break;
+        case 'top':
+          sub = top;
+          break;
+        case 'pants':
+          sub = pants;
+          break;
+        default:
+          break;
+      }
+      console.log(sub);
 
       return {
         ...state,
         data: {
-          current: action.title,
+          current: sub,
         },
         status: {
           isMainCategoryChoose: true,
@@ -34,6 +48,9 @@ export default function category(state = initialState, action) {
       console.log('sub choose');
       return {
         ...state,
+        data: {
+          current: mainData,
+        },
         status: {
           isSubCategoryChoose: true,
         },

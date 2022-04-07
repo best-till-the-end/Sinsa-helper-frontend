@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { mainChoose, subChoose } from '../../redux';
 import styled, { keyframes } from 'styled-components';
+import { outer, top, pants } from '../../redux/category/subData';
 
 const smoodhAppear = keyframes`
 
@@ -38,6 +39,21 @@ const MainCategory = styled.div`
     column-count: 2;
   }
 `;
+const SubCategory = styled.div`
+  -webkit-column-count: 4;
+  -moz-column-count: 4;
+  column-count: 4;
+  -webkit-column-width: 25%;
+  -moz-column-width: 25%;
+  padding: 0 12px;
+
+  @media only screen and (max-width: 991px) {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+`;
+
 const Picture = styled.div`
   -webkit-transition: all 350ms ease;
   transition: all 350ms ease;
@@ -61,7 +77,7 @@ function Search({ data, isMainCategoryChoose }) {
     <div>
       <Title>대분류</Title>
       <MainCategory>
-        {data.mainData.map((item, index) => {
+        {data.map((item, index) => {
           return (
             <Picture key={index}>
               <img
@@ -77,16 +93,17 @@ function Search({ data, isMainCategoryChoose }) {
   );
   const subCategory = (
     <div>
+      {console.log(data)}
       <Title>소분류</Title>
-      <MainCategory>
-        {data.mainData.map((item, index) => {
+      <SubCategory>
+        {data.map((item, index) => {
           return (
             <Picture key={index}>
               <img src={item.imageUrl} style={{ width: '100%' }} />
             </Picture>
           );
         })}
-      </MainCategory>
+      </SubCategory>
     </div>
   );
   return (
