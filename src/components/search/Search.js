@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { mainChoose, subChoose } from '../../redux';
@@ -30,6 +31,12 @@ const MainCategory = styled.div`
   -webkit-column-width: 33%;
   -moz-column-width: 33%;
   padding: 0 12px;
+
+  @media only screen and (max-width: 991px) {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
 `;
 const Picture = styled.div`
   -webkit-transition: all 350ms ease;
@@ -37,18 +44,40 @@ const Picture = styled.div`
   cursor: pointer;
   margin-bottom: 12px;
   filter: brightness(50%);
+  &:hover {
+    filter: brightness(100%);
+  }
 `;
-function Search({ data }) {
+function Search({ data, isMainCategoryChoose }) {
+  const [main, setMain] = useState('');
   const dispatch = useDispatch();
-  const handleData = async () => {
-    dispatch(mainChoose());
+  const handleData = async (title) => {
+    dispatch(mainChoose(title));
+    setMain(title);
     console.log(data);
   };
-
-  let currentData = data.mainData;
+  const onClick = () => {};
   const mainCategory = (
     <div>
       <Title>대분류</Title>
+      <MainCategory>
+        {data.mainData.map((item, index) => {
+          return (
+            <Picture key={index}>
+              <img
+                src={item.imageUrl}
+                style={{ width: '100%' }}
+                onClick={() => handleData(item.title)}
+              />
+            </Picture>
+          );
+        })}
+      </MainCategory>
+    </div>
+  );
+  const subCategory = (
+    <div>
+      <Title>소분류</Title>
       <MainCategory>
         {data.mainData.map((item, index) => {
           return (
@@ -62,7 +91,7 @@ function Search({ data }) {
   );
   return (
     <div>
-      <Section>{mainCategory}</Section>
+      <Section>{isMainCategoryChoose ? subCategory : mainCategory}</Section>
     </div>
   );
 }
@@ -70,6 +99,7 @@ function Search({ data }) {
 const mapStateToProps = (state) => {
   return {
     data: state.category.data.current,
+    isMainCategoryChoose: state.category.status.isMainCategoryChoose,
   };
 };
 

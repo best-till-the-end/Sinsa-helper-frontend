@@ -4,7 +4,7 @@ import { kakaoAuthRequest } from '../../redux';
 
 function OAuthRedirect({ kakaoAuthRequest }) {
   useEffect(() => {
-    kakaoAuthRequest(code);
+    kakaoAuthRequest();
   }, []);
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code');
@@ -20,8 +20,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    kakaoAuthRequest: (code) => {
-      return dispatch(kakaoAuthRequest(code));
+    kakaoAuthRequest: () => {
+      return dispatch(kakaoAuthRequest());
     },
   };
 };

@@ -20,7 +20,7 @@ const Button = styled.a`
 `;
 
 function KakaoAuth() {
-  const CLIENT_ID = 'bc7fe6bbe25ade6d1608e1fb4ab088e9';
+  const CLIENT_ID = 'f3e8be6cc15cdffba2d5f2b675130366';
   const REDIRECT_URI = 'http://localhost:3000/kakaoAuth';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 

@@ -67,8 +67,8 @@ function Main() {
             <br />좀 더 쉽게 원하는 타입의 상품을 검색하고 구입하게 한 사이트
           </Desc>
           {/* <KakaoAuth /> */}
-          {/* <Button onClick={onClick}>검색하러 가기</Button> */}
-          <OAuth />
+          <Button onClick={onClick}>검색하러 가기</Button>
+          {/* <OAuth /> */}
         </Left>
       </Content>
     </Section>

@@ -1,8 +1,9 @@
 import * as types from './types';
 
-export function mainChoose() {
+export function mainChoose(title) {
   return {
     type: types.MAIN_CATEGORY_CHOOSE,
+    title,
   };
 }
 export function subChoose() {

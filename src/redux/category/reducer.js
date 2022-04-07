@@ -1,6 +1,6 @@
 import * as types from './types';
 import mainData from './mainData';
-import subData from './subData';
+import { outer } from './subData';
 
 const initialState = {
   data: {
@@ -19,10 +19,12 @@ export default function category(state = initialState, action) {
     case types.MAIN_CATEGORY_CHOOSE:
       console.log('main choose');
       console.log(initialState);
+      console.log(outer);
+
       return {
         ...state,
         data: {
-          current: { subData },
+          current: action.title,
         },
         status: {
           isMainCategoryChoose: true,
