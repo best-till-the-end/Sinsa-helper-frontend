@@ -12,6 +12,10 @@ const Section = styled.section`
   background: black;
   height: 100vh;
   border: None;
+
+  @media only screen and (max-width: 991px) {
+    height: 180vh; 
+  }
 `;
 const ExButton = styled.button`
   position: absolute;
@@ -43,8 +47,8 @@ const SubCategory = styled.div`
   -webkit-column-count: 4;
   -moz-column-count: 4;
   column-count: 4;
-  -webkit-column-width: 25%;
-  -moz-column-width: 25%;
+  -webkit-column-width: 33%;
+  -moz-column-width: 33%;
   padding: 0 12px;
 
   @media only screen and (max-width: 991px) {
@@ -64,15 +68,19 @@ const Picture = styled.div`
     filter: brightness(100%);
   }
 `;
-function Search({ data, isMainCategoryChoose }) {
-  const [main, setMain] = useState('');
+function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
   const dispatch = useDispatch();
-  const handleData = async (title) => {
+  const [main, setMain] = useState('');
+  const [sub, setSub] = useState('');
+  const onClickMain = async (title) => {
     dispatch(mainChoose(title));
     setMain(title);
     console.log(data);
   };
-  const onClick = () => {};
+  const onClickSub = async (title) => {
+    dispatch(subChoose());
+    setSub(title);
+  };
   const mainCategory = (
     <div>
       <Title>대분류</Title>
@@ -83,8 +91,9 @@ function Search({ data, isMainCategoryChoose }) {
               <img
                 src={item.imageUrl}
                 style={{ width: '100%' }}
-                onClick={() => handleData(item.title)}
+                onClick={() => onClickMain(item.title)}
               />
+              <h1 style={{color: 'white', textAlign: 'center'}}>{item.title}</h1>
             </Picture>
           );
         })}
@@ -99,16 +108,23 @@ function Search({ data, isMainCategoryChoose }) {
         {data.map((item, index) => {
           return (
             <Picture key={index}>
-              <img src={item.imageUrl} style={{ width: '100%' }} />
+              <img src={item.imageUrl} style={{ width: '100%' }} onClick={() => onClickSub(item.title)} />
+              <h1 style={{color: 'white', textAlign: 'center'}}>{item.title}</h1>
             </Picture>
           );
         })}
       </SubCategory>
     </div>
   );
+  const preference = (
+    <div>
+      <Title>선호도</Title>
+      
+    </div>
+  );
   return (
     <div>
-      <Section>{isMainCategoryChoose ? subCategory : mainCategory}</Section>
+      <Section>{isMainCategoryChoose ? (isSubCategoryChoose? preference : subCategory) : mainCategory}</Section>
     </div>
   );
 }
@@ -117,6 +133,7 @@ const mapStateToProps = (state) => {
   return {
     data: state.category.data.current,
     isMainCategoryChoose: state.category.status.isMainCategoryChoose,
+    isSubCategoryChoose: state.category.status.isSubCategoryChoose,
   };
 };
 

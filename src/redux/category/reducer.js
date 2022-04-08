@@ -1,8 +1,6 @@
 import * as types from './types';
 import mainData from './mainData';
 import { outer, top, pants } from './subData';
-import { useState } from 'react';
-import { FreeBreakfastOutlined } from '@material-ui/icons';
 
 const initialState = {
   data: {
@@ -11,6 +9,8 @@ const initialState = {
   status: {
     isMainCategoryChoose: false,
     isSubCategoryChoose: false,
+    valid: false,
+    loading: false
   },
 };
 
@@ -41,6 +41,7 @@ export default function category(state = initialState, action) {
           current: sub,
         },
         status: {
+          ...state.status,
           isMainCategoryChoose: true,
         },
       };
@@ -49,10 +50,37 @@ export default function category(state = initialState, action) {
       return {
         ...state,
         data: {
-          current: mainData,
+          current: [],
         },
         status: {
+          ...state.status,
           isSubCategoryChoose: true,
+        },
+      };
+    case types.POST_SEARCH_RESURT:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loading: true
+        }
+      };
+    case types.POST_SEARCH_RESURT_SUCCESS:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          valid: true,
+          loading: false,
+        },
+      };
+    case types.POST_SEARCH_RESURT_FAILURE:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          valid: false,
+          loading: false,
         },
       };
     default:
