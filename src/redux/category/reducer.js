@@ -57,6 +57,18 @@ export default function category(state = initialState, action) {
           isSubCategoryChoose: true,
         },
       };
+    case types.CATEGORY_RESET:
+      return {
+        ...state,
+        data: {
+          current: mainData,
+        },
+        status: {
+          ...state.status,
+          isMainCategoryChoose: false,
+          isSubCategoryChoose: false,
+        }
+      }
     case types.POST_SEARCH_RESURT:
       return {
         ...state,

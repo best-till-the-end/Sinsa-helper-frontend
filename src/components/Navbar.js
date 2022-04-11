@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogoutRequest, checkSessionRequest } from '../redux';
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { resetCategory } from '../redux/category/actions';
 
 const NavbarContainer = styled.div`
   width: 100%;
@@ -47,9 +48,13 @@ const Button = styled.div`
 `;
 
 function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, []);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const toastOnLogout = () => toast('로그아웃 되었습니다.');
+
   const onLogout = (e) => {
     kakaoLogoutRequest().then(() => {
       toastOnLogout();
@@ -58,6 +63,7 @@ function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
   };
   const onClick = () => {
     navigate('/');
+    dispatch(resetCategory());
   };
 
   return (
@@ -65,12 +71,12 @@ function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
       <NavbarWrap>
         <Title onClick={onClick}>유종의 ME</Title>
         {isLoggedIn ? (
-          <ButtonContainer>
-            <Button href="/MyPage"> My Page </Button>
-          </ButtonContainer>
+          <div>{console.log(isLoggedIn)}</div>
         ) : (
           <ButtonContainer>
-            &nbsp; |<Button href="/Login">로그인</Button>
+            <Button >로그아웃</Button>
+            &nbsp; | &nbsp;
+            <Button href="/MyPage"> My Page </Button>
           </ButtonContainer>
         )}
       </NavbarWrap>

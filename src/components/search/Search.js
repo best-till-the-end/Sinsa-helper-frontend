@@ -14,20 +14,35 @@ const Section = styled.section`
   border: None;
 
   @media only screen and (max-width: 991px) {
-    height: 180vh; 
+    height: 180vh;
   }
-`;
-const ExButton = styled.button`
-  position: absolute;
-  top: 500px;
-  background: white;
-  height: 10px;
 `;
 const Title = styled.h1`
   text-align: center;
   color: white;
   padding: 0 10px;
   margin-bottom: 10px;
+`;
+const PreferContainer = styled.div`
+  justfy-contnet: center;
+  width: 768px;
+  height: 512px;
+
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+
+  margin: 0 auto;
+  margin-top: 32px;
+  margin-bottom: 32px;
+
+  display: flex;
+  flex-direction: column;
+`;
+const Prefer = styled.div`
+  display: block;
+  color: black;
 `;
 const MainCategory = styled.div`
   -webkit-column-count: 3;
@@ -57,7 +72,6 @@ const SubCategory = styled.div`
     column-count: 2;
   }
 `;
-
 const Picture = styled.div`
   -webkit-transition: all 350ms ease;
   transition: all 350ms ease;
@@ -68,6 +82,7 @@ const Picture = styled.div`
     filter: brightness(100%);
   }
 `;
+
 function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
   const dispatch = useDispatch();
   const [main, setMain] = useState('');
@@ -93,7 +108,9 @@ function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
                 style={{ width: '100%' }}
                 onClick={() => onClickMain(item.title)}
               />
-              <h1 style={{color: 'white', textAlign: 'center'}}>{item.title}</h1>
+              <h1 style={{ color: 'white', textAlign: 'center' }}>
+                {item.title}
+              </h1>
             </Picture>
           );
         })}
@@ -108,8 +125,14 @@ function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
         {data.map((item, index) => {
           return (
             <Picture key={index}>
-              <img src={item.imageUrl} style={{ width: '100%' }} onClick={() => onClickSub(item.title)} />
-              <h1 style={{color: 'white', textAlign: 'center'}}>{item.title}</h1>
+              <img
+                src={item.imageUrl}
+                style={{ width: '100%' }}
+                onClick={() => onClickSub(item.title)}
+              />
+              <h1 style={{ color: 'white', textAlign: 'center' }}>
+                {item.title}
+              </h1>
             </Picture>
           );
         })}
@@ -119,12 +142,20 @@ function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
   const preference = (
     <div>
       <Title>선호도</Title>
-      
+      <PreferContainer>
+        <Prefer value={'배송'}></Prefer>
+      </PreferContainer>
     </div>
   );
   return (
     <div>
-      <Section>{isMainCategoryChoose ? (isSubCategoryChoose? preference : subCategory) : mainCategory}</Section>
+      <Section>
+        {isMainCategoryChoose
+          ? isSubCategoryChoose
+            ? preference
+            : subCategory
+          : mainCategory}
+      </Section>
     </div>
   );
 }

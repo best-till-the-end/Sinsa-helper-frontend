@@ -12,7 +12,11 @@ export function subChoose() {
     type: types.SUB_CATEGORY_CHOOSE,
   };
 }
-
+export function resetCategory() {
+  return {
+    type: types.CATEGORY_RESET
+  }
+}
 export function postSearch(body) {
   return (dispatch) => {
     dispatch(postSearchRequest());
