@@ -14,7 +14,7 @@ const Button = styled.a`
   text-align: center;
   color: #f0ffff;
   cursor: pointer;
-  background: linear-gradient(90deg, #0546d6, #3f89fc);
+  background: linear-gradient(90deg, #ffdc3c, #fff064);
   text-decoration: none;
   box-shadow: 0 15px 14px rgb(0 42 177 / 12 %);
 `;

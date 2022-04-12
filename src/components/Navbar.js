@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogoutRequest, checkSessionRequest } from '../redux';
-import { ToastContainer, toast, Flip } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { resetCategory } from '../redux/category/actions';
 
@@ -47,20 +47,20 @@ const Button = styled.div`
   text-align: center;
 `;
 
-function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
+function Navbar(isLoggedIn) {
   useEffect(() => {
     console.log(isLoggedIn);
   }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const toastOnLogout = () => toast('로그아웃 되었습니다.');
+  // const toastOnLogout = () => toast('로그아웃 되었습니다.');
 
-  const onLogout = (e) => {
-    kakaoLogoutRequest().then(() => {
-      toastOnLogout();
-      window.location.replace('/');
-    });
-  };
+  // const onLogout = (e) => {
+  //   kakaoLogoutRequest().then(() => {
+  //     toastOnLogout();
+  //     window.location.replace('/');
+  //   });
+  // };
   const onClick = () => {
     navigate('/');
     dispatch(resetCategory());
@@ -74,7 +74,7 @@ function Navbar(isLoggedIn, kakaoLogoutRequest, checkSessionRequest) {
           <div>{console.log(isLoggedIn)}</div>
         ) : (
           <ButtonContainer>
-            <Button >로그아웃</Button>
+            <Button>로그아웃</Button>
             &nbsp; | &nbsp;
             <Button href="/MyPage"> My Page </Button>
           </ButtonContainer>

@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import KakaoAuth from './user/KakaoAuth';
 import { useNavigate } from 'react-router-dom';
-import OAuth from './user/OAuth';
-
+import { connect } from 'react-redux';
 const Section = styled.section`
   background: black;
   height: 100vh;
@@ -49,7 +48,8 @@ const Button = styled.a`
   text-decoration: none;
   box-shadow: 0 15px 14px rgb(0 42 177 / 12 %);
 `;
-function Main() {
+
+function Main({ isLoggedIn }) {
   const navigate = useNavigate();
 
   const onClick = () => {
@@ -66,13 +66,24 @@ function Main() {
             사용자들이 직접적으로 사용하고 느낀 리뷰를 Ai 모델을 통해 분석하여
             <br />좀 더 쉽게 원하는 타입의 상품을 검색하고 구입하게 한 사이트
           </Desc>
-          {/* <KakaoAuth /> */}
-          <Button onClick={onClick}>검색하러 가기</Button>
-          {/* <OAuth /> */}
+          {isLoggedIn ? (
+            <KakaoAuth />
+          ) : (
+            <Button onClick={onClick}>검색하러 가기</Button>
+          )}
         </Left>
       </Content>
     </Section>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.kakaoAuth.status.isLoggedIn,
+  };
+};
 
-export default Main;
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

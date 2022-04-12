@@ -3,10 +3,17 @@ import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { mainChoose, subChoose } from '../../redux';
 import styled, { keyframes } from 'styled-components';
-import { outer, top, pants } from '../../redux/category/subData';
+import Preference from './Preference';
 
-const smoodhAppear = keyframes`
-
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+}
 `;
 const Section = styled.section`
   background: black;
@@ -17,32 +24,12 @@ const Section = styled.section`
     height: 180vh;
   }
 `;
-const Title = styled.h1`
+export const Title = styled.h1`
   text-align: center;
   color: white;
   padding: 0 10px;
   margin-bottom: 10px;
-`;
-const PreferContainer = styled.div`
-  justfy-contnet: center;
-  width: 768px;
-  height: 512px;
-
-  position: relative;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
-
-  margin: 0 auto;
-  margin-top: 32px;
-  margin-bottom: 32px;
-
-  display: flex;
-  flex-direction: column;
-`;
-const Prefer = styled.div`
-  display: block;
-  color: black;
+  animation: ${smoothAppear} 1s;
 `;
 const MainCategory = styled.div`
   -webkit-column-count: 3;
@@ -51,6 +38,7 @@ const MainCategory = styled.div`
   -webkit-column-width: 33%;
   -moz-column-width: 33%;
   padding: 0 12px;
+  animation: ${smoothAppear} 1s;
 
   @media only screen and (max-width: 991px) {
     -webkit-column-count: 2;
@@ -65,6 +53,7 @@ const SubCategory = styled.div`
   -webkit-column-width: 33%;
   -moz-column-width: 33%;
   padding: 0 12px;
+  animation: ${smoothAppear} 1s;
 
   @media only screen and (max-width: 991px) {
     -webkit-column-count: 2;
@@ -90,11 +79,12 @@ function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
   const onClickMain = async (title) => {
     dispatch(mainChoose(title));
     setMain(title);
-    console.log(data);
+    console.log();
   };
   const onClickSub = async (title) => {
     dispatch(subChoose());
     setSub(title);
+    console.log(sub);
   };
   const mainCategory = (
     <div>
@@ -139,22 +129,19 @@ function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
       </SubCategory>
     </div>
   );
-  const preference = (
-    <div>
-      <Title>선호도</Title>
-      <PreferContainer>
-        <Prefer value={'배송'}></Prefer>
-      </PreferContainer>
-    </div>
-  );
+
   return (
     <div>
       <Section>
-        {isMainCategoryChoose
-          ? isSubCategoryChoose
-            ? preference
-            : subCategory
-          : mainCategory}
+        {isMainCategoryChoose ? (
+          isSubCategoryChoose ? (
+            <Preference main={main} sub={sub} />
+          ) : (
+            subCategory
+          )
+        ) : (
+          mainCategory
+        )}
       </Section>
     </div>
   );

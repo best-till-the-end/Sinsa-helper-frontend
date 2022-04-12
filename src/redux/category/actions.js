@@ -14,37 +14,49 @@ export function subChoose() {
 }
 export function resetCategory() {
   return {
-    type: types.CATEGORY_RESET
-  }
+    type: types.CATEGORY_RESET,
+  };
 }
-export function postSearch(body) {
-  return (dispatch) => {
-    dispatch(postSearchRequest());
-    return axios
-      .post("http://localhost:8080/search", body)
-      .then((response) => {
-        dispatch(postSearchRequestSuccess());
-      })
-      .catch((error) => {
-        dispatch(postSearchRequestFailure());
+export function resetMainCategory() {
+  return {
+    type: types.MAIN_CATEGORY_RESET,
+  };
+}
+export function resetSubCategory(main) {
+  return {
+    type: types.SUB_CATEGORY_RESET,
+    main,
+  };
+}
+export function getSearchResult(body) {
+  return async (dispatch) => {
+    dispatch(getSearchRequest());
+    try {
+      const response = await axios.get('http://localhost:8080/getSearch', {
+        params: body,
       });
+      dispatch(getSearchRequestSuccess(response.data));
+    } catch (error) {
+      dispatch(getSearchRequestFailure());
+    }
   };
 }
 
-export function postSearchRequest() {
+export function getSearchRequest() {
   return {
-    type: types.POST_SEARCH_RESURT,
+    type: types.GET_SEARCH_RESULT,
   };
 }
 
-export function postSearchRequestSuccess() {
+export function getSearchRequestSuccess(searchResult) {
   return {
-    type: types.POST_SEARCH_RESURT_SUCCESS,
+    type: types.GET_SEARCH_RESULT_SUCCESS,
+    searchResult,
   };
 }
 
-export function postSearchRequestFailure() {
+export function getSearchRequestFailure() {
   return {
-    type: types.POST_SEARCH_RESURT_FAILURE,
+    type: types.GET_SEARCH_RESULT_FAILURE,
   };
 }

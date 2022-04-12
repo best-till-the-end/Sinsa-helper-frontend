@@ -10,7 +10,8 @@ const initialState = {
     isMainCategoryChoose: false,
     isSubCategoryChoose: false,
     valid: false,
-    loading: false
+    loading: false,
+    searchResult: [],
   },
 };
 
@@ -21,13 +22,13 @@ export default function category(state = initialState, action) {
       console.log(action.title);
       let sub;
       switch (action.title) {
-        case 'outer':
+        case '외투':
           sub = outer;
           break;
-        case 'top':
+        case '상의':
           sub = top;
           break;
-        case 'pants':
+        case '하의':
           sub = pants;
           break;
         default:
@@ -67,26 +68,66 @@ export default function category(state = initialState, action) {
           ...state.status,
           isMainCategoryChoose: false,
           isSubCategoryChoose: false,
-        }
+        },
+      };
+    case types.MAIN_CATEGORY_RESET:
+      return {
+        ...state,
+        data: {
+          current: mainData,
+        },
+        status: {
+          ...state.status,
+          isMainCategoryChoose: false,
+          isSubCategoryChoose: false,
+        },
+      };
+    case types.SUB_CATEGORY_RESET:
+      let resub;
+      switch (action.main) {
+        case '외투':
+          resub = outer;
+          break;
+        case '상의':
+          resub = top;
+          break;
+        case '하의':
+          resub = pants;
+          break;
+        default:
+          break;
       }
-    case types.POST_SEARCH_RESURT:
+      console.log(resub);
+
+      return {
+        ...state,
+        data: {
+          current: resub,
+        },
+        status: {
+          ...state.status,
+          isSubCategoryChoose: false,
+        },
+      };
+    case types.GET_SEARCH_RESULT:
       return {
         ...state,
         status: {
           ...state.status,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case types.POST_SEARCH_RESURT_SUCCESS:
+    case types.GET_SEARCH_RESULT_SUCCESS:
       return {
         ...state,
         status: {
           ...state.status,
           valid: true,
           loading: false,
+          searchResult: action.searchResult,
         },
       };
-    case types.POST_SEARCH_RESURT_FAILURE:
+    case types.GET_SEARCH_RESULT_FAILURE:
       return {
         ...state,
         status: {
