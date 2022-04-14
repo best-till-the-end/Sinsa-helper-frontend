@@ -49,7 +49,6 @@ const Button = styled.div`
 
 function Navbar(isLoggedIn) {
   useEffect(() => {
-    console.log(isLoggedIn);
   }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -4,4 +4,4 @@ export {
   checkSessionRequest,
 } from './kakaoAuth/actions';
 
-export { mainChoose, subChoose } from './category/actions';
+export { mainChoose, subChoose, getSearchRequest } from './category/actions';

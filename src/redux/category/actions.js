@@ -29,16 +29,18 @@ export function resetSubCategory(main) {
   };
 }
 export function getSearchResult(body) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(getSearchRequest());
-    try {
-      const response = await axios.get('http://localhost:8080/getSearch', {
-        params: body,
+    return axios
+      .get('http://localhost:8080/getSearch', body)
+      .then((response) => {
+        dispatch(getSearchRequestSuccess(response.data));
+        console.log(response.data);
+      })
+      .catch((error) => {
+        dispatch(getSearchRequestFailure());
+        console.log(error);
       });
-      dispatch(getSearchRequestSuccess(response.data));
-    } catch (error) {
-      dispatch(getSearchRequestFailure());
-    }
   };
 }
 

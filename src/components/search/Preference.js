@@ -20,7 +20,7 @@ const smoothAppear = keyframes`
 `;
 const PreferContainer = styled.div`
   justfy-contnet: center;
-  width: 768px;
+  width: 512px;
   height: 512px;
 
   position: relative;
@@ -52,7 +52,8 @@ const CategoryContainer = styled.div`
   display: flex;
 
   button {
-    width: 200px;
+    width: 150px;
+    height: 29px;
     color: white;
     background-color: #0000CD;
 
@@ -64,29 +65,67 @@ const CategoryContainer = styled.div`
     padding-right: 3px;
     &:hover {
       background-color: #4646CD;
+    
   }
 `;
 const Prefer = styled.div`
   padding-top: 20px;
   padding-left: 32px;
   padding-right: 32px;
-  padding-bottom: 10px;
-
   h1 {
     margin: 0;
     font-size: 21px;
-  }
-  div {
-    margin-top: 20px;
-    font-size: 15px;
-  }
 
-  input {
-    margin-top: 20px;
+  & + & {
+    margin-top: 1rem;
   }
 `;
 
-function Preference({ main, sub }) {
+const Label = styled.div`
+  font-size: 1rem;
+  color: #505050;
+  margin-bottom: 0.5rem;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid black;
+
+  outline: none;
+  border-radius: 2px;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+`;
+const SearchButton = styled.button`
+  width: 100%;
+  height: 50px;
+  color: white;
+  background-color: #0000cd;
+  border: 1px none;
+
+  border-radius: 10px;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-top: 45px;
+  margin-bottom: 0.5rem;
+  &:hover {
+    background-color: #4646cd;
+  }
+`;
+
+function Preference({ main, sub, getSearchResult }) {
   const [deliveryScore, setDeliveryScore] = useState(0);
   const [sizeScore, setSizeScore] = useState(0);
   const [qualityScore, setQualityScore] = useState(0);
@@ -99,31 +138,37 @@ function Preference({ main, sub }) {
     dispatch(resetSubCategory(main));
   };
   const handleScore = (pref, score) => {
-    switch (pref) {
-      case 'delivery':
-        setDeliveryScore(score);
-        break;
-      case 'size':
-        setSizeScore(score);
-        break;
-      case 'quality':
-        setQualityScore(score);
-        break;
-      default:
-        break;
+    if (Number.isNaN(score)) {
+      switch (pref) {
+        case 'delivery':
+          setDeliveryScore(score);
+          break;
+        case 'size':
+          setSizeScore(score);
+          break;
+        case 'quality':
+          setQualityScore(score);
+          break;
+        default:
+          break;
+      }
     }
   };
   const handleSearch = () => {
-    console.log(deliveryScore);
-    let body = {
+    // let body = {
+    //   mainCategory: main,
+    //   subCategory: sub,
+    //   deliveryScore: deliveryScore,
+    //   sizeScore: sizeScore,
+    //   qualityScore: qualityScore,
+    // };
+    getSearchResult({
       mainCategory: main,
       subCategory: sub,
       deliveryScore: deliveryScore,
       sizeScore: sizeScore,
       qualityScore: qualityScore,
-    };
-    getSearchResult(body);
-    console.log(body);
+    });
   };
   return (
     <div>
@@ -140,20 +185,25 @@ function Preference({ main, sub }) {
           </CategoryContainer>
         </Header>
         <Prefer>
-          <h1>점수를 입력하세요</h1>
-          <div>배송 점수:</div>
-          <input
+          <Label>배송</Label>
+          <Input
+            placeholder="점수를 입력하세요"
             onChange={(e) => handleScore('delivery', e.target.value)}
-          ></input>
-          <div>사이즈 점수:</div>
-          <input onChange={(e) => handleScore('size', e.target.value)}></input>
-          <div>품질 점수:</div>
-          <input
+          />
+          <Label>사이즈</Label>
+          <Input
+            placeholder="점수를 입력하세요"
+            onChange={(e) => handleScore('size', e.target.value)}
+          />
+          <Label>품질</Label>
+          <Input
+            placeholder="점수를 입력하세요"
             onChange={(e) => handleScore('quality', e.target.value)}
-          ></input>
-          <CategoryContainer>
-            <button onClick={() => handleSearch}>검색하기</button>
-          </CategoryContainer>
+          />
+
+          <SearchButton className="search" onClick={handleSearch}>
+            검색하기
+          </SearchButton>
         </Prefer>
       </PreferContainer>
     </div>

@@ -11,13 +11,13 @@ import { checkSession } from '../../redux/kakaoAuth/actions';
 
 function KakaoAuthTokenHandler({ kakaoAuthRequest, isLoggedIn }) {
   useEffect(() => {
-    let code = new URL(window.location.href).searchParams.get('code');
+    const code = new URL(window.location.href).searchParams.get('code');
     kakaoAuthRequest(code);
-  }, []);
+  }, [kakaoAuthRequest]);
 
   const navigate = useNavigate();
   if (isLoggedIn === true) {
-    let headers = {
+    const headers = {
       Authorization: localStorage.getItem('token'),
     };
     checkSession(headers);
@@ -43,7 +43,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-React.memo(KakaoAuthTokenHandler);
 export default connect(
   mapStateToProps,
   mapDispatchToProps

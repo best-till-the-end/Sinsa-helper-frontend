@@ -1,8 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import KakaoAuth from './user/KakaoAuth';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+}
+`;
+
 const Section = styled.section`
   background: black;
   height: 100vh;
@@ -12,6 +24,8 @@ const Section = styled.section`
 const Content = styled.div`
   width: 100%;
   height: 100px;
+
+  animation: ${smoothAppear} 1s;
 `;
 const Left = styled.div`
   padding-left: 220px;
