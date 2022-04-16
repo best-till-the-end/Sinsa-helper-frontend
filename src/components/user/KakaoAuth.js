@@ -21,7 +21,7 @@ const Button = styled.a`
 
 function KakaoAuth() {
   const CLIENT_ID = 'f3e8be6cc15cdffba2d5f2b675130366';
-  const REDIRECT_URI = 'http://localhost:3000/kakaoAuth';
+  const REDIRECT_URI = 'http://localhost:3000/auth/kakao/login';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (

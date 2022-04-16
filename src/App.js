@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/kakaoAuth" element={<KakaoAuthTokenHandler />} />
+        <Route path="/auth/kakao/login" element={<KakaoAuthTokenHandler />} />
         <Route path="/Search" element={<Search />} />
       </Routes>
       <GlobalStyle />

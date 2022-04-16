@@ -13,9 +13,10 @@ function KakaoAuthTokenHandler({ kakaoAuthRequest, isLoggedIn }) {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     kakaoAuthRequest(code);
-  }, [kakaoAuthRequest]);
+  }, []);
 
   const navigate = useNavigate();
+
   if (isLoggedIn === true) {
     const headers = {
       Authorization: localStorage.getItem('token'),

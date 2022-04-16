@@ -10,13 +10,13 @@ import {
 } from './types';
 
 export function kakaoAuthRequest(code) {
-  return async (dispatch) => {
+  return (dispatch) => {
     // Inform Login API is starting
     dispatch(kakaoAuth());
 
     // API REQUEST
-    return await axios
-      .get('http://localhost:8080/kakaoAuth/', {
+    return axios
+      .get('http://localhost:8080/auth/kakao/authorize', {
         params: {
           code: code,
         },
