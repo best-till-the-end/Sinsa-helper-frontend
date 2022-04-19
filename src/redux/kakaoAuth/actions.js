@@ -16,7 +16,7 @@ export function kakaoAuthRequest(code) {
 
     // API REQUEST
     return axios
-      .get('http://localhost:8080/auth/kakao/authorize', {
+      .get('http://localhost:8080/auth/kakao/login', {
         params: {
           code: code,
         },

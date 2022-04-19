@@ -7,6 +7,7 @@ import {
   resetSubCategory,
   getSearchResult,
 } from '../../redux/category/actions';
+import { useNavigate } from 'react-router-dom';
 
 const smoothAppear = keyframes`
   from {
@@ -130,6 +131,7 @@ function Preference({ main, sub, getSearchResult }) {
   const [sizeScore, setSizeScore] = useState(0);
   const [qualityScore, setQualityScore] = useState(0);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const resetMain = () => {
     dispatch(resetMainCategory());
@@ -169,6 +171,7 @@ function Preference({ main, sub, getSearchResult }) {
       sizeScore: sizeScore,
       qualityScore: qualityScore,
     });
+    navigate('/Search/SearchResult');
   };
   return (
     <div>

@@ -11,7 +11,17 @@ const initialState = {
     isSubCategoryChoose: false,
     valid: false,
     loading: false,
-    searchResult: [],
+    like: {
+      liked: false,
+      likeSrc: 'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+      NonLikeSrc: 'https://cdn-icons-png.flaticon.com/512/833/833300.png',
+    },
+    searchResult: [
+      {
+        imgSrc:
+          'https://image.msscdn.net/images/goods_img/20210407/1884943/1884943_1_500.jpg',
+      },
+    ],
   },
 };
 
@@ -134,6 +144,17 @@ export default function category(state = initialState, action) {
           ...state.status,
           valid: false,
           loading: false,
+        },
+      };
+    case types.LIKE_CLICK:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          like: {
+            ...state.status.like,
+            liked: true,
+          },
         },
       };
     default:

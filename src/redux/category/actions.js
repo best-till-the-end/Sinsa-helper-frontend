@@ -32,7 +32,9 @@ export function getSearchResult(body) {
   return (dispatch) => {
     dispatch(getSearchRequest());
     return axios
-      .get('http://localhost:8080/getSearch', body)
+      .get('http://localhost:8080/getSearch', {
+        params: body,
+      })
       .then((response) => {
         dispatch(getSearchRequestSuccess(response.data));
         console.log(response.data);
@@ -60,5 +62,11 @@ export function getSearchRequestSuccess(searchResult) {
 export function getSearchRequestFailure() {
   return {
     type: types.GET_SEARCH_RESULT_FAILURE,
+  };
+}
+
+export function clicklike() {
+  return {
+    types: types.LIKE_CLICK,
   };
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import KakaoAuth from './user/KakaoAuth';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -14,7 +14,6 @@ const smoothAppear = keyframes`
     transform: translateX(0);
 }
 `;
-
 const Section = styled.section`
   background: black;
   height: 100vh;
