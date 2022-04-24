@@ -34,7 +34,6 @@ const ResultContainer = styled.div`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
 
   margin: 0 auto;
-  margin-bottom: 32px;
 
   display: flex;
   flex-direction: column;

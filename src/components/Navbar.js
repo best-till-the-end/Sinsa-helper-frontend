@@ -46,10 +46,16 @@ const Button = styled.div`
   height: 36px;
   text-align: center;
 `;
+const AdminButton = styled.div`
+  width: 100px;
+  font-size: 20px;
+  cursor: pointer;
+  height: 36px;
+  text-align: center;
+`;
 
 function Navbar(isLoggedIn) {
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const toastOnLogout = () => toast('로그아웃 되었습니다.');
@@ -65,12 +71,17 @@ function Navbar(isLoggedIn) {
     dispatch(resetCategory());
   };
 
+  const onClickAdmin = () => {
+    navigate('/adminProduct');
+  };
   return (
     <NavbarContainer>
       <NavbarWrap>
         <Title onClick={onClick}>유종의 ME</Title>
         {isLoggedIn ? (
-          <div>{console.log(isLoggedIn)}</div>
+          <ButtonContainer>
+            <AdminButton onClick={onClickAdmin}>Add Products</AdminButton>
+          </ButtonContainer>
         ) : (
           <ButtonContainer>
             <Button>로그아웃</Button>

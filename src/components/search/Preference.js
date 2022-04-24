@@ -127,9 +127,9 @@ const SearchButton = styled.button`
 `;
 
 function Preference({ main, sub, getSearchResult }) {
-  const [deliveryScore, setDeliveryScore] = useState(0);
-  const [sizeScore, setSizeScore] = useState(0);
-  const [qualityScore, setQualityScore] = useState(0);
+  const [deliveryPreference, setDeliveryPreference] = useState(0);
+  const [sizePreference, setSizePreference] = useState(0);
+  const [qualityPreference, setQualityPreference] = useState(0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -139,17 +139,17 @@ function Preference({ main, sub, getSearchResult }) {
   const resetSub = (main) => {
     dispatch(resetSubCategory(main));
   };
-  const handleScore = (pref, score) => {
-    if (Number.isNaN(score)) {
+  const handlePreference = (pref, preference) => {
+    if (Number.isNaN(preference)) {
       switch (pref) {
         case 'delivery':
-          setDeliveryScore(score);
+          setDeliveryPreference(preference);
           break;
         case 'size':
-          setSizeScore(score);
+          setSizePreference(preference);
           break;
         case 'quality':
-          setQualityScore(score);
+          setQualityPreference(Preference);
           break;
         default:
           break;
@@ -160,16 +160,16 @@ function Preference({ main, sub, getSearchResult }) {
     // let body = {
     //   mainCategory: main,
     //   subCategory: sub,
-    //   deliveryScore: deliveryScore,
-    //   sizeScore: sizeScore,
-    //   qualityScore: qualityScore,
+    //   deliveryPreferenc: deliveryPreferenc,
+    //   sizePreferenc: sizePreferenc,
+    //   qualityPreferenc: qualityPreferenc,
     // };
     getSearchResult({
       mainCategory: main,
       subCategory: sub,
-      deliveryScore: deliveryScore,
-      sizeScore: sizeScore,
-      qualityScore: qualityScore,
+      deliveryPreference: deliveryPreference,
+      sizePreference: sizePreference,
+      qualityPreference: qualityPreference,
     });
     navigate('/Search/SearchResult');
   };
@@ -191,17 +191,17 @@ function Preference({ main, sub, getSearchResult }) {
           <Label>배송</Label>
           <Input
             placeholder="점수를 입력하세요"
-            onChange={(e) => handleScore('delivery', e.target.value)}
+            onChange={(e) => handlePreference('delivery', e.target.value)}
           />
           <Label>사이즈</Label>
           <Input
             placeholder="점수를 입력하세요"
-            onChange={(e) => handleScore('size', e.target.value)}
+            onChange={(e) => handlePreference('size', e.target.value)}
           />
           <Label>품질</Label>
           <Input
             placeholder="점수를 입력하세요"
-            onChange={(e) => handleScore('quality', e.target.value)}
+            onChange={(e) => handlePreference('quality', e.target.value)}
           />
 
           <SearchButton className="search" onClick={handleSearch}>
