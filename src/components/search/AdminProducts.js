@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { postItemUrl } from '../../redux/category/actions';
 import { connect } from 'react-redux';
+
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+}
+`;
 
 const Section = styled.section`
   background: black;
@@ -15,12 +26,18 @@ const Content = styled.div`
   height: 100px;
   justify-content: center;
   align-items: center;
+  animation: ${smoothAppear} 1s;
 `;
 const Container = styled.div`
   display: block;
+  div {
+    margin-top: 30px;
+    color: lightgray;
+    white-space: pre-wrap;
+  }
 `;
 const Title = styled.p`
-  margin-top: 200px;
+  margin-top: 350px;
   width: 800px;
   font-size: 55px;
   color: white;
@@ -74,7 +91,10 @@ function AdminProducts() {
         <Container>
           <center>
             <Title>상품의 URL을 적으세요</Title>
-            <div></div>
+            <div>
+              같이 분석하고 싶은 상품을 등록하세요. 상품 등록은 5분 정도의
+              시간이 걸릴 수 있습니다..
+            </div>
             <Input>
               <input value={input} onChange={(e) => onChange(e)} />
               <button onClick={add}>upload</button>
