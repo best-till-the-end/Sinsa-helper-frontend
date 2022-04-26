@@ -9,4 +9,5 @@ export {
   subChoose,
   getSearchRequest,
   clicklike,
+  postItemUrl,
 } from './category/actions';

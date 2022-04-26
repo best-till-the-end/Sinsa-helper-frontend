@@ -164,13 +164,20 @@ function Preference({ main, sub, getSearchResult }) {
     //   sizePreferenc: sizePreferenc,
     //   qualityPreferenc: qualityPreferenc,
     // };
-    getSearchResult({
-      mainCategory: main,
-      subCategory: sub,
-      deliveryPreference: deliveryPreference,
-      sizePreference: sizePreference,
-      qualityPreference: qualityPreference,
-    });
+    const headers = {
+      Authorization: localStorage.getItem('token'),
+    };
+
+    getSearchResult(
+      {
+        mainCategory: main,
+        subCategory: sub,
+        deliveryPreference: deliveryPreference,
+        sizePreference: sizePreference,
+        qualityPreference: qualityPreference,
+      },
+      headers
+    );
     navigate('/Search/SearchResult');
   };
   return (
@@ -218,8 +225,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSearchResult: (body) => {
-      return dispatch(getSearchResult(body));
+    getSearchResult: (body, headers) => {
+      return dispatch(getSearchResult(body, headers));
     },
   };
 };

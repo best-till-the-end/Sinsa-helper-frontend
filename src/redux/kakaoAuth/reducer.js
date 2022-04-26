@@ -102,7 +102,6 @@ export default function kakaoAuth(state = initialState, action) {
           ...state.status,
           isLoggedIn: true,
           valid: true,
-          userInfo: action.userInfo,
         },
       };
     case types.KAKAO_VERIFICATION_FAILURE:

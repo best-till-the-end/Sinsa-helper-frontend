@@ -146,6 +146,18 @@ export default function category(state = initialState, action) {
           loading: false,
         },
       };
+    case types.POST_ITEM_URL:
+      return {
+        ...state,
+      };
+    case types.POST_ITEM_URL_SUCCESS:
+      return {
+        ...state,
+      };
+    case types.POST_ITEM_URL_FAILURE:
+      return {
+        ...state,
+      };
     case types.LIKE_CLICK:
       return {
         ...state,

@@ -4,8 +4,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { kakaoAuthRequest } from '../../redux';
-import { checkSession } from '../../redux/kakaoAuth/actions';
+import { kakaoAuthRequest, checkSessionRequest } from '../../redux';
 
 //import Spinner from "./Spinner";
 
@@ -13,7 +12,7 @@ function KakaoAuthTokenHandler({ kakaoAuthRequest, isLoggedIn }) {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     kakaoAuthRequest(code);
-  }, []);
+  }, [kakaoAuthRequest]);
 
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ function KakaoAuthTokenHandler({ kakaoAuthRequest, isLoggedIn }) {
     const headers = {
       Authorization: localStorage.getItem('token'),
     };
-    checkSession(headers);
+    checkSessionRequest(headers);
     navigate('/');
   }
   return <div></div>;
@@ -38,8 +37,8 @@ const mapDispatchToProps = (dispatch) => {
     kakaoAuthRequest: (code) => {
       return dispatch(kakaoAuthRequest(code));
     },
-    checkSession: (headers) => {
-      return dispatch(checkSession(headers));
+    checkSessionRequest: (headers) => {
+      return dispatch(checkSessionRequest(headers));
     },
   };
 };

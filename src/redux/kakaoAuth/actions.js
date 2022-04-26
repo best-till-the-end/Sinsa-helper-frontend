@@ -65,7 +65,7 @@ export function checkSessionRequest(headers) {
     dispatch(checkSession());
 
     return axios
-      .get('http://localhost:8080/getInfo/', headers)
+      .post('http://localhost:8080/auth/kakao/authorize', headers)
       .then((response) => {
         dispatch(checkSessionSuccess(response.data)); //HTTP 틍신을 통해 userId을 빋이옴
       })
@@ -81,10 +81,9 @@ export function checkSession() {
   };
 }
 
-export function checkSessionSuccess(userInfo) {
+export function checkSessionSuccess() {
   return {
     type: KAKAO_VERIFICATION_SUCCESS,
-    userInfo,
   };
 }
 

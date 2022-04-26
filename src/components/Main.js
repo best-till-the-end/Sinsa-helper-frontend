@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import KakaoAuth from './user/KakaoAuth';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { checkSessionRequest } from '../redux';
 
 const smoothAppear = keyframes`
   from {
@@ -66,6 +67,10 @@ function Main({ isLoggedIn }) {
   const navigate = useNavigate();
 
   const onClick = () => {
+    const headers = {
+      Authorization: localStorage.getItem('token'),
+    };
+    checkSessionRequest(headers);
     navigate('/Search');
   };
   return (
@@ -84,6 +89,11 @@ function Main({ isLoggedIn }) {
           ) : (
             <Button onClick={onClick}>검색하러 가기</Button>
           )}
+          {/* {isLoggedIn ? (
+            <Button onClick={onClick}>검색하러 가기</Button>
+          ) : (
+            <KakaoAuth />
+          )} */}
         </Left>
       </Content>
     </Section>
@@ -96,7 +106,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    checkSessionRequest: (headers) => {
+      return dispatch(checkSessionRequest(headers));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

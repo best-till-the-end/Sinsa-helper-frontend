@@ -28,12 +28,13 @@ export function resetSubCategory(main) {
     main,
   };
 }
-export function getSearchResult(body) {
+export function getSearchResult(body, headers) {
   return (dispatch) => {
     dispatch(getSearchRequest());
     return axios
       .get('http://localhost:8080/getSearch', {
         params: body,
+        headers: headers,
       })
       .then((response) => {
         dispatch(getSearchRequestSuccess(response.data));
@@ -62,6 +63,40 @@ export function getSearchRequestSuccess(searchResult) {
 export function getSearchRequestFailure() {
   return {
     type: types.GET_SEARCH_RESULT_FAILURE,
+  };
+}
+
+export function postItemUrl(url) {
+  return (dispatch) => {
+    dispatch(postItemUrlRequest());
+    return axios
+      .post('http://localhost:8080/addItem', url)
+      .then((response) => {
+        dispatch(postItemUrlRequestSuccess());
+        console.log(response.data);
+      })
+      .catch((error) => {
+        dispatch(postItemUrlRequestFailure());
+        console.log(error);
+      });
+  };
+}
+
+export function postItemUrlRequest() {
+  return {
+    type: types.POST_ITEM_URL,
+  };
+}
+
+export function postItemUrlRequestSuccess() {
+  return {
+    type: types.POST_ITEM_URL_SUCCESS,
+  };
+}
+
+export function postItemUrlRequestFailure() {
+  return {
+    type: types.POST_ITEM_URL_FAILURE,
   };
 }
 
