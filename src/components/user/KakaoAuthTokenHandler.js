@@ -10,7 +10,7 @@ import { kakaoAuthRequest, checkSessionRequest } from '../../redux';
 
 function KakaoAuthTokenHandler({ kakaoAuthRequest, isLoggedIn }) {
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get('code');
+    let code = new URL(window.location.href).searchParams.get('code');
     kakaoAuthRequest(code);
   }, [kakaoAuthRequest]);
 

@@ -20,7 +20,7 @@ const smoothAppear = keyframes`
 }
 `;
 const PreferContainer = styled.div`
-  justfy-contnet: center;
+  justify-content: center;
   width: 512px;
   height: 512px;
 
@@ -56,7 +56,7 @@ const CategoryContainer = styled.div`
     width: 150px;
     height: 29px;
     color: white;
-    background-color: #0000CD;
+    background-color: #0000cd;
 
     border: 1px none;
     border-radius: 10px;
@@ -65,10 +65,11 @@ const CategoryContainer = styled.div`
     padding-left: 3px;
     padding-right: 3px;
     &:hover {
-      background-color: #4646CD;
-    
+      background-color: #4646cd;
+    }
   }
 `;
+
 const Prefer = styled.div`
   padding-top: 20px;
   padding-left: 32px;
@@ -76,6 +77,7 @@ const Prefer = styled.div`
   h1 {
     margin: 0;
     font-size: 21px;
+  }
 
   & + & {
     margin-top: 1rem;
@@ -157,13 +159,6 @@ function Preference({ main, sub, getSearchResult }) {
     }
   };
   const handleSearch = () => {
-    // let body = {
-    //   mainCategory: main,
-    //   subCategory: sub,
-    //   deliveryPreferenc: deliveryPreferenc,
-    //   sizePreferenc: sizePreferenc,
-    //   qualityPreferenc: qualityPreferenc,
-    // };
     const headers = {
       Authorization: localStorage.getItem('token'),
     };
