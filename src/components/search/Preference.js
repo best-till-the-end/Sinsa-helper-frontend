@@ -142,7 +142,7 @@ function Preference({ main, sub, getSearchResult }) {
     dispatch(resetSubCategory(main));
   };
   const handlePreference = (pref, preference) => {
-    if (Number.isNaN(preference)) {
+    if (!Number.isNaN(preference)) {
       switch (pref) {
         case 'delivery':
           setDeliveryPreference(preference);
@@ -156,6 +156,8 @@ function Preference({ main, sub, getSearchResult }) {
         default:
           break;
       }
+    } else {
+      alert('숫자를 입력해주세요');
     }
   };
   const handleSearch = () => {

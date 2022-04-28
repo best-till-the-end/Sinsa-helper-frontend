@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 import { clicklike } from '../../redux/category/actions';
@@ -135,6 +135,27 @@ const PriceDetail = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  div {
+    display: flex;
+    justify-content: flex-end;
+  }
+  img {
+    width: 30px;
+    cursor: pointer;
+  }
+  button {
+    border: 2px solid teal;
+    background-color: white;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 5px 5px;
+    margin-top: 10px;
+    margin-right: 10px;
+    &:hover {
+      background-color: #f8f4f4;
+    }
+  }
 `;
 const ProductPrice = styled.div`
   font-size: 30px;
@@ -150,12 +171,17 @@ const Hr = styled.hr`
 `;
 function SearchResult({ like, data }) {
   const dispatch = useDispatch();
+  const [isLiked, setIsLiked] = useState(false);
 
   const CilckLikeButton = () => {
-    dispatch(clicklike());
-    console.log(like.liked);
-  };
+    setIsLiked(false);
 
+    // dispatch(clicklike());
+    // console.log(like.liked);
+  };
+  const ClickUnLikeButton = () => {
+    setIsLiked(true);
+  };
   const OtherProducts = (
     <Info>
       {mainData.map((product) => {
@@ -181,6 +207,22 @@ function SearchResult({ like, data }) {
               </ProductDetail>
               <PriceDetail>
                 <ProductPrice> 200,000 Won</ProductPrice>
+                {isLiked ? (
+                  <img
+                    src={like.likeSrc}
+                    onClick={CilckLikeButton}
+                    alt="like"
+                  ></img>
+                ) : (
+                  <div>
+                    <img
+                      src={like.NonLikeSrc}
+                      onClick={ClickUnLikeButton}
+                      alt="unlike"
+                    ></img>
+                    <button>상품 보러가기</button>
+                  </div>
+                )}
               </PriceDetail>
             </Product>
             <Hr />
@@ -206,10 +248,17 @@ function SearchResult({ like, data }) {
             <Price>200,000 Won</Price>
             <ButtonContainer>
               <ProductButton>상품 보러가기</ProductButton>
-              <LikeButton
-                src={like.liked ? like.likeSrc : like.NonLikeSrc}
-                onClick={CilckLikeButton}
-              ></LikeButton>
+              {isLiked ? (
+                <LikeButton
+                  src={like.likeSrc}
+                  onClick={CilckLikeButton}
+                ></LikeButton>
+              ) : (
+                <LikeButton
+                  src={like.NonLikeSrc}
+                  onClick={ClickUnLikeButton}
+                ></LikeButton>
+              )}
             </ButtonContainer>
           </InfoContainter>
         </FirstProduct>

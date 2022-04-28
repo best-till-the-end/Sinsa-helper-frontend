@@ -71,7 +71,7 @@ const Input = styled.div`
     padding: 5px 5px;
     cursor: pointer;
 
-    &: hover {
+    &:hover {
       background: lightgray;
     }
   }
@@ -84,6 +84,7 @@ function AdminProducts() {
   };
   const add = () => {
     postItemUrl(input);
+    alert('상품이 등록되었습니다.');
   };
   return (
     <Section>

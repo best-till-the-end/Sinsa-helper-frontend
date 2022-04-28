@@ -35,7 +35,7 @@ const Title = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
-  font-size: 25px;
+  font-size: 24px;
   justify-content: flex-end;
   position: fixed;
   right: 100px;
@@ -52,6 +52,7 @@ const AdminButton = styled.div`
   cursor: pointer;
   height: 36px;
   text-align: center;
+  margin-bottom: 15px;
 `;
 
 function Navbar(isLoggedIn) {
@@ -74,6 +75,9 @@ function Navbar(isLoggedIn) {
   const onClickAdmin = () => {
     navigate('/adminProduct');
   };
+  const onClickMyPage = () => {
+    navigate('/MyPage');
+  };
   return (
     <NavbarContainer>
       <NavbarWrap>
@@ -81,6 +85,8 @@ function Navbar(isLoggedIn) {
         {isLoggedIn ? (
           <ButtonContainer>
             <AdminButton onClick={onClickAdmin}>Add Products</AdminButton>
+            &nbsp; | &nbsp;
+            <Button onClick={onClickMyPage}> My Page </Button>
           </ButtonContainer>
         ) : (
           <ButtonContainer>
