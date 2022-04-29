@@ -84,7 +84,6 @@ function Search({ data, isMainCategoryChoose, isSubCategoryChoose }) {
   const onClickSub = async (title) => {
     dispatch(subChoose());
     setSub(title);
-    console.log(sub);
   };
   const mainCategory = (
     <div>

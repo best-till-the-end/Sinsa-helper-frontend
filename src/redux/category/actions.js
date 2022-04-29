@@ -28,6 +28,7 @@ export function resetSubCategory(main) {
     main,
   };
 }
+// getSearch
 export function getSearchResult(body, headers) {
   return (dispatch) => {
     dispatch(getSearchRequest());
@@ -66,6 +67,7 @@ export function getSearchRequestFailure() {
   };
 }
 
+// postUrl
 export function postItemUrl(url) {
   return (dispatch) => {
     dispatch(postItemUrlRequest());

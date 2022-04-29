@@ -129,9 +129,13 @@ const SearchButton = styled.button`
 `;
 
 function Preference({ main, sub, getSearchResult }) {
-  const [deliveryPreference, setDeliveryPreference] = useState(0);
-  const [sizePreference, setSizePreference] = useState(0);
-  const [qualityPreference, setQualityPreference] = useState(0);
+  const [PreferenceScores, setPreferenceScores] = useState({
+    delivery: '',
+    size: '',
+    quality: '',
+  });
+
+  const { delivery, size, quality } = PreferenceScores;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -141,24 +145,14 @@ function Preference({ main, sub, getSearchResult }) {
   const resetSub = (main) => {
     dispatch(resetSubCategory(main));
   };
-  const handlePreference = (pref, preference) => {
-    if (!Number.isNaN(preference)) {
-      switch (pref) {
-        case 'delivery':
-          setDeliveryPreference(preference);
-          break;
-        case 'size':
-          setSizePreference(preference);
-          break;
-        case 'quality':
-          setQualityPreference(Preference);
-          break;
-        default:
-          break;
-      }
-    } else {
-      alert('숫자를 입력해주세요');
-    }
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    const onlyNumber = value.replace(/[^0-9]/g, '');
+    setPreferenceScores({
+      ...PreferenceScores,
+      [name]: onlyNumber,
+    });
   };
   const handleSearch = () => {
     const headers = {
@@ -169,12 +163,18 @@ function Preference({ main, sub, getSearchResult }) {
       {
         mainCategory: main,
         subCategory: sub,
-        deliveryPreference: deliveryPreference,
-        sizePreference: sizePreference,
-        qualityPreference: qualityPreference,
+        deliveryPreference: delivery,
+        sizePreference: size,
+        qualityPreference: quality,
       },
       headers
     );
+    setPreferenceScores({
+      delivery: 0,
+      size: 0,
+      quality: 0,
+    });
+
     navigate('/Search/SearchResult');
   };
   return (
@@ -194,18 +194,24 @@ function Preference({ main, sub, getSearchResult }) {
         <Prefer>
           <Label>배송</Label>
           <Input
+            name="delivery"
             placeholder="점수를 입력하세요"
-            onChange={(e) => handlePreference('delivery', e.target.value)}
+            value={delivery}
+            onChange={onChange}
           />
           <Label>사이즈</Label>
           <Input
+            name="size"
             placeholder="점수를 입력하세요"
-            onChange={(e) => handlePreference('size', e.target.value)}
+            value={size}
+            onChange={onChange}
           />
           <Label>품질</Label>
           <Input
+            name="quality"
             placeholder="점수를 입력하세요"
-            onChange={(e) => handlePreference('quality', e.target.value)}
+            value={quality}
+            onChange={onChange}
           />
 
           <SearchButton className="search" onClick={handleSearch}>
