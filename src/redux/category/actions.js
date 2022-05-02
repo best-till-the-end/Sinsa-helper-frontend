@@ -83,6 +83,7 @@ export function postItemUrl(url, headers) {
       })
       .then((response) => {
         dispatch(postItemUrlRequestSuccess());
+        getSearchResult()
         console.log(response.data);
       })
 
@@ -110,7 +111,7 @@ export function postItemUrlRequestFailure() {
     type: types.POST_ITEM_URL_FAILURE,
   };
 }
-export function handleLikeWishItem(item_id, headers) {
+export function handleLikeWishItem(body, item_id, headers) {
   return (dispatch) => {
     dispatch(wishItemLikeRequest());
 
@@ -120,6 +121,8 @@ export function handleLikeWishItem(item_id, headers) {
       })
       .then((response) => {
         dispatch(wishItemLikeRequestSuccess());
+        getSearchResult(body, headers)
+
         console.log(response.data);
       })
 
@@ -148,7 +151,7 @@ export function wishItemLikeRequestFailure() {
   };
 }
 
-export function handleDislikeWishItem(item_id, headers) {
+export function handleDislikeWishItem(body, item_id, headers) {
   return (dispatch) => {
     dispatch(dislikeWishItem());
     return axios
@@ -157,6 +160,7 @@ export function handleDislikeWishItem(item_id, headers) {
       })
       .then((response) => {
         dispatch(dislikeWishItemSuccess());
+        getSearchResult(body,headers);
         console.log(response.data);
       })
       .catch((error) => {

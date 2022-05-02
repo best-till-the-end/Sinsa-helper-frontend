@@ -160,6 +160,13 @@ export default function category(state = initialState, action) {
     case types.LIKE_WISH_ITEM_SUCCESS:
       return {
         ...state,
+        status: {
+          ...state.status,
+          like: {
+            ...state.status.like,
+            liked: true,
+          }
+        }
       };
     case types.LIKE_WISH_ITEM_FAILURE:
       return {

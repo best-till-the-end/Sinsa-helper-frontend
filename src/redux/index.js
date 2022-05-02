@@ -12,3 +12,5 @@ export {
   handleLikeWishItem,
   handleDislikeWishItem,
 } from './category/actions';
+
+export { getWishListRequest } from './mypage/actions';

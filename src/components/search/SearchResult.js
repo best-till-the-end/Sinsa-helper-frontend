@@ -177,15 +177,17 @@ const ProductPrice = styled.div`
 
 function SearchResult({
   searchResult,
-  loading,
+  like,
   handleDislikeWishItem,
   handleLikeWishItem,
+  getSearchResult,
 }) {
   useEffect(() => {
     const headers = {
       Authorization: localStorage.getItem('token'),
     };
-
+    console.log(like.liked);
+    console.log(searchResult);
     getSearchResult(
       {
         mainCategory: main,
@@ -196,33 +198,44 @@ function SearchResult({
       },
       headers
     );
-  });
+  }, [like.liked, searchResult]);
 
   const { main, sub, delivery, size, quality } = useParams();
-  let like = [];
-  const isLikeContent = loading
-    ? {}
-    : // eslint-disable-next-line array-callback-return
-      searchResult.map((result) => {
-        like.push(result.like);
-      });
+
   const headers = {
     Authorization: localStorage.getItem('token'),
   };
   const ClickLikeButton = (item_id) => {
-    like[item_id] = !like[item_id];
-    console.log(item_id, headers);
-    handleDislikeWishItem(item_id, headers);
+    handleDislikeWishItem(
+      {
+        mainCategory: main,
+        subCategory: sub,
+        deliveryPreference: delivery,
+        sizePreference: size,
+        qualityPreference: quality,
+      },
+      item_id,
+      headers
+    );
   };
   const ClickUnLikeButton = (item_id) => {
-    like[item_id] = !like[item_id];
     console.log(item_id, headers);
-    handleLikeWishItem(item_id, headers);
+    handleLikeWishItem(
+      {
+        mainCategory: main,
+        subCategory: sub,
+        deliveryPreference: delivery,
+        sizePreference: size,
+        qualityPreference: quality,
+      },
+      item_id,
+      headers
+    );
   };
 
   return (
     <Section>
-      {searchResult.length > 0 ? (
+      {searchResult && searchResult.length > 0 ? (
         <ResultContainer>
           <Header>검색결과</Header>
           <FirstProduct>
@@ -246,7 +259,7 @@ function SearchResult({
                 <ProductButton href={searchResult[0].itemUrl}>
                   상품 보러가기
                 </ProductButton>
-                {like[0] ? (
+                {searchResult[0].like ? (
                   <LikeButton
                     src={like.likeSrc}
                     onClick={() => ClickLikeButton(searchResult[0].itemId)}
@@ -286,7 +299,7 @@ function SearchResult({
                     </ProductDetail>
                     <PriceDetail>
                       <ProductPrice> {product.priceToday}</ProductPrice>
-                      {like[index] ? (
+                      {product.like ? (
                         <img
                           src={like.likeSrc}
                           onClick={() => ClickLikeButton(product.itemId)}
@@ -320,20 +333,20 @@ const mapStateToProps = (state) => {
   return {
     searchResult: state.category.status.searchResult,
     loading: state.category.status.loading,
-    like: state.category.like,
+    like: state.category.status.like,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleDislikeWishItem: (item_id, headers) => {
-      return dispatch(handleDislikeWishItem(item_id, headers));
+    handleDislikeWishItem: (body, item_id, headers) => {
+      return dispatch(handleDislikeWishItem(body, item_id, headers));
     },
     getSearchResult: (body, headers) => {
       return dispatch(getSearchResult(body, headers));
     },
-    handleLikeWishItem: (item_id, headers) => {
-      return dispatch(handleLikeWishItem(item_id, headers));
+    handleLikeWishItem: (body, item_id, headers) => {
+      return dispatch(handleLikeWishItem(body, item_id, headers));
     },
   };
 };
