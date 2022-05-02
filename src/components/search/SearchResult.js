@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { clicklike } from '../../redux/category/actions';
-import mainData from '../../redux/category/mainData';
+import {
+  handleDislikeWishItem,
+  handleLikeWishItem,
+  getSearchResult,
+} from '../../redux';
 
 const smoothAppear = keyframes`
     from {
@@ -84,7 +88,7 @@ const LikeButton = styled.img`
   padding: 30px 0px;
   margin: 20px 0px;
 `;
-const ProductButton = styled.button`
+const ProductButton = styled.a`
   padding: 15px;
   margin: 30px 0px;
   border: 2px solid teal;
@@ -107,6 +111,14 @@ const Info = styled.div`
 `;
 const Summary = styled.div`
   flex: 1;
+`;
+
+const Hr = styled.hr`
+  background-color: lightgray;
+  border: none;
+  height: 1px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 const Product = styled.div`
   display: flex;
@@ -144,7 +156,7 @@ const PriceDetail = styled.div`
     width: 30px;
     cursor: pointer;
   }
-  button {
+  a {
     border: 2px solid teal;
     background-color: white;
     cursor: pointer;
@@ -162,123 +174,167 @@ const ProductPrice = styled.div`
   font-weight: 200;
   margin-top: 20px;
 `;
-const Hr = styled.hr`
-  background-color: lightgray;
-  border: none;
-  height: 1px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-`;
-function SearchResult({ like, data }) {
-  const dispatch = useDispatch();
-  const [isLiked, setIsLiked] = useState(false);
 
-  const CilckLikeButton = () => {
-    setIsLiked(false);
+function SearchResult({
+  searchResult,
+  loading,
+  handleDislikeWishItem,
+  handleLikeWishItem,
+}) {
+  useEffect(() => {
+    const headers = {
+      Authorization: localStorage.getItem('token'),
+    };
 
-    // dispatch(clicklike());
-    // console.log(like.liked);
+    getSearchResult(
+      {
+        mainCategory: main,
+        subCategory: sub,
+        deliveryPreference: delivery,
+        sizePreference: size,
+        qualityPreference: quality,
+      },
+      headers
+    );
+  });
+
+  const { main, sub, delivery, size, quality } = useParams();
+  let like = [];
+  const isLikeContent = loading
+    ? {}
+    : // eslint-disable-next-line array-callback-return
+      searchResult.map((result) => {
+        like.push(result.like);
+      });
+  const headers = {
+    Authorization: localStorage.getItem('token'),
   };
-  const ClickUnLikeButton = () => {
-    setIsLiked(true);
+  const ClickLikeButton = (item_id) => {
+    like[item_id] = !like[item_id];
+    console.log(item_id, headers);
+    handleDislikeWishItem(item_id, headers);
   };
-  const OtherProducts = (
-    <Info>
-      {mainData.map((product) => {
-        return (
-          <>
-            <Product>
-              <ProductDetail>
-                <OtherImage src={product.imageUrl}></OtherImage>
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> {product.title}
-                  </ProductName>
-                  <ProductScore>
-                    <b>배송:</b> 30 점
-                  </ProductScore>
-                  <ProductScore>
-                    <b>사이즈:</b> 40 점
-                  </ProductScore>
-                  <ProductScore>
-                    <b>품질:</b> 50 점
-                  </ProductScore>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductPrice> 200,000 Won</ProductPrice>
-                {isLiked ? (
-                  <img
-                    src={like.likeSrc}
-                    onClick={CilckLikeButton}
-                    alt="like"
-                  ></img>
-                ) : (
-                  <div>
-                    <img
-                      src={like.NonLikeSrc}
-                      onClick={ClickUnLikeButton}
-                      alt="unlike"
-                    ></img>
-                    <button>상품 보러가기</button>
-                  </div>
-                )}
-              </PriceDetail>
-            </Product>
-            <Hr />
-          </>
-        );
-      })}
-    </Info>
-  );
+  const ClickUnLikeButton = (item_id) => {
+    like[item_id] = !like[item_id];
+    console.log(item_id, headers);
+    handleLikeWishItem(item_id, headers);
+  };
+
   return (
     <Section>
-      <ResultContainer>
-        <Header>검색결과</Header>
-        <FirstProduct>
-          <ImageContainer>
-            <Image src="https://image.msscdn.net/data/curating/23723/23723_1_250.jpg"></Image>
-          </ImageContainer>
-          <VerticleLine />
-          <InfoContainter>
-            <Title>Longsleeve 무지 긴팔티</Title>
-            <Desc>배송</Desc>
-            <Desc>사이즈</Desc>
-            <Desc>품질</Desc>
-            <Price>200,000 Won</Price>
-            <ButtonContainer>
-              <ProductButton>상품 보러가기</ProductButton>
-              {isLiked ? (
-                <LikeButton
-                  src={like.likeSrc}
-                  onClick={CilckLikeButton}
-                ></LikeButton>
-              ) : (
-                <LikeButton
-                  src={like.NonLikeSrc}
-                  onClick={ClickUnLikeButton}
-                ></LikeButton>
-              )}
-            </ButtonContainer>
-          </InfoContainter>
-        </FirstProduct>
-        <Hr />
-        <OtherContainer>
-          {OtherProducts}
-          <Summary>Summary</Summary>
-        </OtherContainer>
-      </ResultContainer>
+      {searchResult.length > 0 ? (
+        <ResultContainer>
+          <Header>검색결과</Header>
+          <FirstProduct>
+            <ImageContainer>
+              <Image src={searchResult[0].photo}></Image>
+            </ImageContainer>
+            <VerticleLine />
+            <InfoContainter>
+              <Title>{searchResult[0].mainCategory}</Title>
+              <Desc>
+                <b>배송:</b> {searchResult[0].deliveryScore}
+              </Desc>
+              <Desc>
+                <b>사이즈:</b> {searchResult[0].sizeScore}
+              </Desc>
+              <Desc>
+                <b>품질:</b> {searchResult[0].qualityScore}
+              </Desc>
+              <Price>{searchResult[0].priceToday}</Price>
+              <ButtonContainer>
+                <ProductButton href={searchResult[0].itemUrl}>
+                  상품 보러가기
+                </ProductButton>
+                {like[0] ? (
+                  <LikeButton
+                    src={like.likeSrc}
+                    onClick={() => ClickLikeButton(searchResult[0].itemId)}
+                  ></LikeButton>
+                ) : (
+                  <LikeButton
+                    src={like.NonLikeSrc}
+                    onClick={() => ClickUnLikeButton(searchResult[0].itemId)}
+                  ></LikeButton>
+                )}
+              </ButtonContainer>
+            </InfoContainter>
+          </FirstProduct>
+          <Hr />
+          <OtherContainer>
+            {searchResult
+              .slice(1, searchResult.length)
+              .map((product, index) => (
+                <Info>
+                  <Product key={index}>
+                    <ProductDetail>
+                      <OtherImage src={product.photo}></OtherImage>
+                      <Details>
+                        <ProductName>
+                          <b>Product:</b> {product.title}
+                        </ProductName>
+                        <ProductScore>
+                          <b>배송:</b> {product.deliveryScore}
+                        </ProductScore>
+                        <ProductScore>
+                          <b>사이즈:</b> {product.sizeScore}
+                        </ProductScore>
+                        <ProductScore>
+                          <b>품질:</b> {product.qualityScore}
+                        </ProductScore>
+                      </Details>
+                    </ProductDetail>
+                    <PriceDetail>
+                      <ProductPrice> {product.priceToday}</ProductPrice>
+                      {like[index] ? (
+                        <img
+                          src={like.likeSrc}
+                          onClick={() => ClickLikeButton(product.itemId)}
+                          alt="like"
+                        ></img>
+                      ) : (
+                        <div>
+                          <img
+                            src={like.NonLikeSrc}
+                            onClick={() => ClickUnLikeButton(product.itemId)}
+                            alt="unlike"
+                          ></img>
+                        </div>
+                      )}
+                      <a href={product.itemUrl}>상품 보러가기</a>
+                    </PriceDetail>
+                  </Product>
+                  <Hr />
+                </Info>
+              ))}
+            <Summary>Summary</Summary>
+          </OtherContainer>
+        </ResultContainer>
+      ) : (
+        <div></div>
+      )}
     </Section>
   );
 }
 const mapStateToProps = (state) => {
   return {
-    like: state.category.status.like,
-    data: state.category.data.current,
+    searchResult: state.category.status.searchResult,
+    loading: state.category.status.loading,
+    like: state.category.like,
   };
 };
 
-const mapDispatchToProps = () => {
-  return {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleDislikeWishItem: (item_id, headers) => {
+      return dispatch(handleDislikeWishItem(item_id, headers));
+    },
+    getSearchResult: (body, headers) => {
+      return dispatch(getSearchResult(body, headers));
+    },
+    handleLikeWishItem: (item_id, headers) => {
+      return dispatch(handleLikeWishItem(item_id, headers));
+    },
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

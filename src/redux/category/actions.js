@@ -33,7 +33,7 @@ export function getSearchResult(body, headers) {
   return (dispatch) => {
     dispatch(getSearchRequest());
     return axios
-      .get('http://localhost:8080/getSearch', {
+      .get('http://localhost:8080/search/result', {
         params: body,
         headers: headers,
       })
@@ -68,15 +68,24 @@ export function getSearchRequestFailure() {
 }
 
 // postUrl
-export function postItemUrl(url) {
+export function postItemUrl(url, headers) {
   return (dispatch) => {
     dispatch(postItemUrlRequest());
+    console.log(url);
+    console.log(headers);
+    let body = {
+      url: url,
+    };
     return axios
-      .post('http://localhost:8080/addItem', url)
+      .get('http://localhost:8080/item', {
+        params: body,
+        headers: headers,
+      })
       .then((response) => {
         dispatch(postItemUrlRequestSuccess());
         console.log(response.data);
       })
+
       .catch((error) => {
         dispatch(postItemUrlRequestFailure());
         console.log(error);
@@ -101,9 +110,74 @@ export function postItemUrlRequestFailure() {
     type: types.POST_ITEM_URL_FAILURE,
   };
 }
+export function handleLikeWishItem(item_id, headers) {
+  return (dispatch) => {
+    dispatch(wishItemLikeRequest());
 
-export function clicklike() {
+    return axios
+      .get(`http://localhost:8080/wish/like/${item_id}`, {
+        headers: headers,
+      })
+      .then((response) => {
+        dispatch(wishItemLikeRequestSuccess());
+        console.log(response.data);
+      })
+
+      .catch((error) => {
+        dispatch(wishItemLikeRequestFailure());
+        console.log(error);
+      });
+  };
+}
+
+export function wishItemLikeRequest() {
   return {
-    types: types.LIKE_CLICK,
+    type: types.LIKE_WISH_ITEM,
+  };
+}
+
+export function wishItemLikeRequestSuccess() {
+  return {
+    type: types.LIKE_WISH_ITEM_SUCCESS,
+  };
+}
+
+export function wishItemLikeRequestFailure() {
+  return {
+    type: types.LIKE_WISH_ITEM_FAILURE,
+  };
+}
+
+export function handleDislikeWishItem(item_id, headers) {
+  return (dispatch) => {
+    dispatch(dislikeWishItem());
+    return axios
+      .delete(`http://localhost:8080/wish/dislike/${item_id}`, {
+        headers: headers,
+      })
+      .then((response) => {
+        dispatch(dislikeWishItemSuccess());
+        console.log(response.data);
+      })
+      .catch((error) => {
+        dispatch(dislikeWishItemFailure());
+        console.log(error);
+      });
+  };
+}
+
+export function dislikeWishItem() {
+  return {
+    type: types.DISLIKE_WISH_ITEM,
+  };
+}
+export function dislikeWishItemSuccess() {
+  return {
+    type: types.DISLIKE_WISH_ITEM_SUCCESS,
+  };
+}
+export function dislikeWishItemFailure() {
+  return {
+    type: types.DISLIKE_WISH_ITEM_FAILURE,
   };
 }

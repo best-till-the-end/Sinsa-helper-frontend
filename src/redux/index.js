@@ -7,7 +7,8 @@ export {
 export {
   mainChoose,
   subChoose,
-  getSearchRequest,
-  clicklike,
+  getSearchResult,
   postItemUrl,
+  handleLikeWishItem,
+  handleDislikeWishItem,
 } from './category/actions';

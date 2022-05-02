@@ -12,7 +12,7 @@ export const top = [
       'https://image.msscdn.net/images/goods_img/20190327/996234/996234_3_big.jpg',
   },
   {
-    title: '셔츠',
+    title: '셔츠/블라우스',
     id: 3,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20190315/983819/983819_1_big.jpg',
@@ -27,25 +27,25 @@ export const top = [
 
 export const outer = [
   {
-    title: '블레이저',
+    title: '슈트/블레이저',
     id: 1,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20200130/1283757/1283757_1_big.jpg',
   },
   {
-    title: '바람막이',
+    title: '트레이닝',
     id: 2,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20220211/2355654/2355654_1_big.jpg',
   },
   {
-    title: '코트',
+    title: '환절기',
     id: 3,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20180921/865864/865864_3_big.jpg',
   },
   {
-    title: '패딩',
+    title: '숏패딩/숏헤비',
     id: 4,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20181029/892821/892821_1_big.jpg',
@@ -53,10 +53,10 @@ export const outer = [
 ];
 export const pants = [
   {
-    title: '반바지',
+    title: '숏',
     id: 1,
     imageUrl:
-    'https://image.msscdn.net/images/goods_img/20180424/763134/763134_4_big.jpg',
+      'https://image.msscdn.net/images/goods_img/20180424/763134/763134_4_big.jpg',
   },
   {
     title: '데님',
@@ -65,13 +65,13 @@ export const pants = [
       'https://image.msscdn.net/images/goods_img/20190508/1037219/1037219_2_big.jpg',
   },
   {
-    title: '슬랙스',
+    title: '슈트',
     id: 3,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20210908/2116441/2116441_2_big.jpg',
   },
   {
-    title: '트레이닝',
+    title: '트레이닝/조거',
     id: 4,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20190201/947202/947202_3_big.jpg',

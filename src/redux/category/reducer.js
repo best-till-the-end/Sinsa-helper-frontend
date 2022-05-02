@@ -16,12 +16,7 @@ const initialState = {
       likeSrc: 'https://cdn-icons-png.flaticon.com/512/833/833472.png',
       NonLikeSrc: 'https://cdn-icons-png.flaticon.com/512/833/833300.png',
     },
-    searchResult: [
-      {
-        imgSrc:
-          'https://image.msscdn.net/images/goods_img/20210407/1884943/1884943_1_500.jpg',
-      },
-    ],
+    searchResult: [],
   },
 };
 
@@ -158,17 +153,53 @@ export default function category(state = initialState, action) {
       return {
         ...state,
       };
-    case types.LIKE_CLICK:
+    case types.LIKE_WISH_ITEM:
+      return {
+        ...state,
+      };
+    case types.LIKE_WISH_ITEM_SUCCESS:
+      return {
+        ...state,
+      };
+    case types.LIKE_WISH_ITEM_FAILURE:
+      return {
+        ...state,
+      };
+    case types.DISLIKE_WISH_ITEM:
       return {
         ...state,
         status: {
           ...state.status,
+          searchResult: action.searchResult,
           like: {
             ...state.status.like,
-            liked: true,
           },
         },
       };
+    case types.DISLIKE_WISH_ITEM_SUCCESS:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          searchResult: action.searchResult,
+          like: {
+            ...state.status.like,
+            liked: false,
+          },
+        },
+      };
+    case types.DISLIKE_WISH_ITEM_FAILURE:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          searchResult: action.searchResult,
+          like: {
+            ...state.status.like,
+          },
+        },
+      };
+
     default:
       return state;
   }

@@ -28,7 +28,7 @@ export function kakaoAuthRequest(code) {
         console.log(response.data);
         const ACCESS_TOKEN = response.data.accessToken;
 
-        localStorage.setItem('token', 'Bearer' + ACCESS_TOKEN); //예시로 로컬에 저장함
+        localStorage.setItem('token', 'Bearer ' + ACCESS_TOKEN); //예시로 로컬에 저장함
       })
       .catch((error) => {
         // FAILED

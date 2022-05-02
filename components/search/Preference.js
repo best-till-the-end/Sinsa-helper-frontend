@@ -175,7 +175,7 @@ function Preference({ main, sub, getSearchResult }) {
       quality: 0,
     });
 
-    navigate(`/search/result/${main}/${sub}/${delivery}/${size}/${quality}`);
+    navigate('/search/result');
   };
   return (
     <div>
