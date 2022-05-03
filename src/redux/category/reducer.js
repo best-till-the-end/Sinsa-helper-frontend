@@ -11,6 +11,7 @@ const initialState = {
     isSubCategoryChoose: false,
     valid: false,
     loading: false,
+    error: '',
     like: {
       liked: false,
       likeSrc: 'https://cdn-icons-png.flaticon.com/512/833/833472.png',
@@ -148,6 +149,10 @@ export default function category(state = initialState, action) {
     case types.POST_ITEM_URL_SUCCESS:
       return {
         ...state,
+        status: {
+          ...state.status,
+          error: action.error,
+        },
       };
     case types.POST_ITEM_URL_FAILURE:
       return {
@@ -165,8 +170,8 @@ export default function category(state = initialState, action) {
           like: {
             ...state.status.like,
             liked: true,
-          }
-        }
+          },
+        },
       };
     case types.LIKE_WISH_ITEM_FAILURE:
       return {

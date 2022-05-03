@@ -77,7 +77,7 @@ const Input = styled.div`
   }
 `;
 
-function AdminProducts({ postItemUrl }) {
+function AdminProducts({ postItemUrl, error }) {
   const [url, setUrl] = useState('');
 
   const onChange = (e) => {
@@ -89,31 +89,36 @@ function AdminProducts({ postItemUrl }) {
       Authorization: localStorage.getItem('token'),
     };
     postItemUrl(url, headers);
-    alert('상품이 등록되었습니다.');
+
+    if (error === 'redundant item') {
+      alert('중복된 상품입니다. 다시 입력해주세요');
+    } else alert('상품이 등록되었습니다.');
   };
   return (
-      <Section>
-        <Content>
-          <Container>
-            <center>
-              <Title>상품의 URL을 적으세요</Title>
-              <div>
-                같이 분석하고 싶은 상품을 등록하세요. 상품 등록은 5분 정도의
-                시간이 걸릴 수 있습니다..
-              </div>
-              <Input>
-                <input name="url" value={url} onChange={onChange} />
-                <button onClick={add}>upload</button>
-              </Input>
-            </center>
-          </Container>
-        </Content>
-      </Section>
+    <Section>
+      <Content>
+        <Container>
+          <center>
+            <Title>상품의 URL을 적으세요</Title>
+            <div>
+              같이 분석하고 싶은 상품을 등록하세요. 상품 등록은 5분 정도의
+              시간이 걸릴 수 있습니다..
+            </div>
+            <Input>
+              <input name="url" value={url} onChange={onChange} />
+              <button onClick={add}>upload</button>
+            </Input>
+          </center>
+        </Container>
+      </Content>
+    </Section>
   );
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    error: state.category.status.error,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
 import mainData from '../redux/category/mainData';
 import { getWishListRequest } from '../redux';
-import searchResult from "./search/SearchResult";
+import searchResult from './search/SearchResult';
 
 const smoothAppear = keyframes`
   from {
@@ -105,7 +105,7 @@ function MyPage({ getWishListRequest, wishList }) {
       Authorization: localStorage.getItem('token'),
     };
     getWishListRequest(headers);
-  },[]);
+  }, []);
   return (
     <Section>
       {Array.isArray(wishList) && wishList.length === 0 ? (
@@ -143,9 +143,11 @@ function MyPage({ getWishListRequest, wishList }) {
                       <WishPrice>어제가격: {product.priceToday}</WishPrice>
                       <WishPrice>오늘가격: {product.priceYesterday}</WishPrice>
                       <PriceChange>
-                        어제 가격의 (({product.priceToday} -{' '}
-                        {product.priceYesterday})/{product.priceYesterday}* 100)
-                        % 입니다.{' '}
+                        어제 가격의{' '}
+                        {((product.priceToday - product.priceYesterday) /
+                          product.priceYesterday) *
+                          100}
+                        % 입니다.
                       </PriceChange>
                     </WishPriceDetail>
                   </WishProduct>

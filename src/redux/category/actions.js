@@ -82,8 +82,7 @@ export function postItemUrl(url, headers) {
         headers: headers,
       })
       .then((response) => {
-        dispatch(postItemUrlRequestSuccess());
-        getSearchResult()
+        dispatch(postItemUrlRequestSuccess(response.data));
         console.log(response.data);
       })
 
@@ -100,9 +99,10 @@ export function postItemUrlRequest() {
   };
 }
 
-export function postItemUrlRequestSuccess() {
+export function postItemUrlRequestSuccess(error) {
   return {
     type: types.POST_ITEM_URL_SUCCESS,
+    error,
   };
 }
 
@@ -121,7 +121,7 @@ export function handleLikeWishItem(body, item_id, headers) {
       })
       .then((response) => {
         dispatch(wishItemLikeRequestSuccess());
-        getSearchResult(body, headers)
+        getSearchResult(body, headers);
 
         console.log(response.data);
       })
@@ -160,7 +160,7 @@ export function handleDislikeWishItem(body, item_id, headers) {
       })
       .then((response) => {
         dispatch(dislikeWishItemSuccess());
-        getSearchResult(body,headers);
+        getSearchResult(body, headers);
         console.log(response.data);
       })
       .catch((error) => {
