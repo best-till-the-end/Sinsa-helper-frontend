@@ -83,7 +83,7 @@ function Navbar(isLoggedIn) {
     <NavbarContainer>
       <NavbarWrap>
         <Title onClick={onClick}>유종의 ME</Title>
-        {token || isLoggedIn ? (
+        {token || isLoggedIn === true ? (
           <ButtonContainer>
             <AdminButton onClick={onClickAdmin}>Add Products</AdminButton>
             &nbsp; | &nbsp;
