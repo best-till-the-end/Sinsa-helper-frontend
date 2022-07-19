@@ -1,0 +1,48 @@
+name: Manual workflow
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Setup Checkout
+      uses: actions/checkout@v3
+      
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '17'
+        
+    - name: Install Dependencies
+      run: |
+        npm i styled-components
+        npm i react-router-dom
+        npm install axios
+        npm i @redux-devtools/extension
+        npm install redux-thunk
+        npm i —save redux-logger
+        npm install —save react-redux
+        npm install —save redux
+        npm install @material-ui/icons
+        npm install @material-ui/core
+    
+    - name: Build React Application
+      run: npm run build
+      
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: build image
+      run: docker build -t squib0612/sinsahelper-frontend:latest .
+      
+    - name: push image to hub
+      run: docker push squib0612/sinsahelper-frontend:latest
