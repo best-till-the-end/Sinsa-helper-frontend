@@ -16,48 +16,26 @@ const SearchResultPage = ({
   getSearchResult,
 }) => {
   const { main, sub, delivery, size, quality } = useParams();
+  const results = {
+    mainCategory: main,
+    subCategory: sub,
+    deliveryPreference: delivery,
+    sizePreference: size,
+    qualityPreference: quality,
+  };
   const headers = {
     Authorization: localStorage.getItem('token'),
   };
   useEffect(() => {
-    getSearchResult(
-      {
-        mainCategory: main,
-        subCategory: sub,
-        deliveryPreference: delivery,
-        sizePreference: size,
-        qualityPreference: quality,
-      },
-      headers
-    );
+    getSearchResult(results, headers);
   }, [getSearchResult]);
 
   const ClickLikeButton = (item_id) => {
-    handleDislikeWishItem(
-      {
-        mainCategory: main,
-        subCategory: sub,
-        deliveryPreference: delivery,
-        sizePreference: size,
-        qualityPreference: quality,
-      },
-      item_id,
-      headers
-    );
+    handleDislikeWishItem(results, item_id, headers);
   };
   const ClickUnLikeButton = (item_id) => {
     console.log(item_id, headers);
-    handleLikeWishItem(
-      {
-        mainCategory: main,
-        subCategory: sub,
-        deliveryPreference: delivery,
-        sizePreference: size,
-        qualityPreference: quality,
-      },
-      item_id,
-      headers
-    );
+    handleLikeWishItem(results, item_id, headers);
   };
 
   return (

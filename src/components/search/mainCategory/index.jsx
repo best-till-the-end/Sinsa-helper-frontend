@@ -5,7 +5,7 @@ import { Main } from './styles';
 const MainCategory = ({ data, onClickMain }) => {
   return (
     <div>
-      <Title>소분류</Title>
+      <Title>대분류</Title>
       <Main>
         {data.map((item, index) => {
           return (

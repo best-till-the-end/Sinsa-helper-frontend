@@ -51,5 +51,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+  };
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
