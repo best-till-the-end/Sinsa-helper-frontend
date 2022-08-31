@@ -12,7 +12,7 @@ const smoothAppear = keyframes`
 `;
 export const Section = styled.section`
   background: black;
-  height: 100vh;
+  height: 100%;
   display: block;
   border: None;
 `;
@@ -54,7 +54,7 @@ export const WishDetail = styled.div`
 `;
 export const WishImage = styled.img`
   width: 200px;
-  height: 20vh;
+  height: 30vh;
   object-fit: cover;
 `;
 export const Details = styled.div`

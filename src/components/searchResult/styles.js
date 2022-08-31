@@ -48,9 +48,9 @@ export const ImageContainer = styled.div`
 `;
 export const Image = styled.img`
   width: 85%;
-  height: 50vh;
+  height: 80vh;
 
-  object-fit: cover;
+  object-fit: full;
 `;
 export const InfoContainter = styled.div`
   flex: 1;
@@ -59,6 +59,7 @@ export const InfoContainter = styled.div`
 
 export const Title = styled.h1`
   font-weight: 200;
+  margin-bottom: 100px;
 `;
 export const Desc = styled.p`
   margin: 20px 0px;
@@ -123,7 +124,7 @@ export const ProductDetail = styled.div`
 export const OtherImage = styled.img`
   width: 200px;
   height: 20vh;
-  object-fit: cover;
+  object-fit: fill;
 `;
 export const Details = styled.div`
   padding: 20px;
@@ -147,6 +148,7 @@ export const PriceDetail = styled.div`
   img {
     width: 30px;
     cursor: pointer;
+    objet-fit: fill;
   }
   a {
     border: 2px solid teal;

@@ -44,7 +44,7 @@ const SearchResult = ({
             </ImageContainer>
             <VerticleLine />
             <InfoContainter>
-              <Title>{searchResult[0].mainCategory}</Title>
+              <Title>{searchResult[0].itemName}</Title>
               <Desc>
                 <b>배송:</b> {searchResult[0].deliveryScore}
               </Desc>
@@ -85,7 +85,7 @@ const SearchResult = ({
                         <OtherImage src={product.photo}></OtherImage>
                         <Details>
                           <ProductName>
-                            <b>Product:</b> {product.title}
+                            <b>Product:</b> {product.itemName}
                           </ProductName>
                           <ProductScore>
                             <b>배송:</b> {product.deliveryScore}

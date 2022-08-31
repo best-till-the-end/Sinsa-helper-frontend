@@ -6,23 +6,21 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoAuthRequest, checkSessionRequest } from '../../redux';
 
-//import Spinner from "./Spinner";
-
 function KakaoAuthTokenHandler({ kakaoAuthRequest, isLoggedIn }) {
+  const navigate = useNavigate();
   useEffect(() => {
-    let code = new URL(window.location.href).searchParams.get('code');
+    const code = new URL(window.location.href).searchParams.get('code');
     kakaoAuthRequest(code);
   }, [kakaoAuthRequest]);
-
-  const navigate = useNavigate();
-
   if (isLoggedIn === true) {
     const headers = {
       Authorization: localStorage.getItem('token'),
     };
     checkSessionRequest(headers);
-    navigate('/');
   }
+  useEffect(() => {
+    navigate('/');
+  });
   return <div></div>;
 }
 

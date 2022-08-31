@@ -28,15 +28,15 @@ const My = ({ wishList }) => {
           <Hr />
           <WishList>
             <Info>
-              {wishList.map((product) => (
+              {wishList.map((product, index) => (
                 <>
-                  <WishProduct>
+                  <WishProduct key={index}>
                     <WishDetail>
                       <WishImage src={product.photo}></WishImage>
                       <Details>
-                        <WishInfo>
+                        {/* <WishInfo>
                           <b>상품명:</b> {product.itemName}
-                        </WishInfo>
+                        </WishInfo> */}
                         <WishInfo>
                           <b>배송:</b> 30 점
                         </WishInfo>

@@ -12,7 +12,7 @@ import {
   AdminButton,
 } from './styles';
 
-const Navbar = (isLoggedIn) => {
+const Navbar = ({ isLoggedIn }) => {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Navbar = (isLoggedIn) => {
     <NavbarContainer>
       <NavbarWrap>
         <Title onClick={onClick}>유종의 ME</Title>
-        {token || isLoggedIn === true ? (
+        {token || isLoggedIn ? (
           <ButtonContainer>
             <AdminButton onClick={onClickAdmin}>Add Products</AdminButton>
             &nbsp; | &nbsp;

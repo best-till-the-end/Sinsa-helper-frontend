@@ -33,6 +33,7 @@ const SearchPage = ({
 
   const onClickSub = (title) => {
     dispatch(subChoose());
+    title.split('/').join('');
     setSub(title);
   };
 
@@ -48,14 +49,18 @@ const SearchPage = ({
     const onlyNumber = value.replace(/[^0-9]/g, '');
     setPreferenceScores({
       ...PreferenceScores,
-      [name]: onlyNumber,
+      [name]: Number(onlyNumber),
     });
   };
   const handleSearch = () => {
     const headers = {
       Authorization: localStorage.getItem('token'),
     };
-
+    console.log(delivery, size, quality, delivery + size + quality);
+    if (Number(delivery + size + quality) !== 100) {
+      alert('세 수의 합은 100이여야 합니다.');
+      return;
+    }
     getSearchResult(
       {
         mainCategory: main,
