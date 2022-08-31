@@ -28,13 +28,12 @@ const SearchResultPage = ({
   };
   useEffect(() => {
     getSearchResult(results, headers);
-  }, [getSearchResult]);
+  }, [getSearchResult, like]);
 
   const ClickLikeButton = (item_id) => {
     handleDislikeWishItem(results, item_id, headers);
   };
   const ClickUnLikeButton = (item_id) => {
-    console.log(item_id, headers);
     handleLikeWishItem(results, item_id, headers);
   };
 
