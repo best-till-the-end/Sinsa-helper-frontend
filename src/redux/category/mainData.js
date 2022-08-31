@@ -12,7 +12,7 @@ const mainData = [
       'https://image.msscdn.net/images/goods_img/20210809/2054385/2054385_2_500.jpg',
   },
   {
-    title: '하의',
+    title: '바지',
     id: 3,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20191113/1224095/1224095_4_500.jpg',

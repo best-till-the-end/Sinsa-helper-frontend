@@ -33,15 +33,15 @@ export function getSearchResult(body, headers) {
   return async (dispatch) => {
     dispatch(getSearchRequest());
     try {
-      const response = await axios.get('http://localhost:8080/search/result', {
+      const response = await axios.get(`/search/result`, {
         params: body,
         headers: headers,
       });
+      console.log(response, body, headers);
       dispatch(getSearchRequestSuccess(response.data));
       console.log(response.data);
     } catch (error) {
       dispatch(getSearchRequestFailure());
-      console.log(error);
     }
   };
 }
@@ -69,13 +69,11 @@ export function getSearchRequestFailure() {
 export function postItemUrl(url, headers) {
   return async (dispatch) => {
     dispatch(postItemUrlRequest());
-    console.log(url);
-    console.log(headers);
     let body = {
-      url: url,
+      url,
     };
     try {
-      const response = await axios.get('http://localhost:8080/item', {
+      const response = await axios.get('/item', {
         params: body,
         headers: headers,
       });
@@ -111,12 +109,9 @@ export function handleLikeWishItem(body, item_id, headers) {
     dispatch(wishItemLikeRequest());
 
     try {
-      const response = await axios.get(
-        `http://localhost:8080/wish/like/${item_id}`,
-        {
-          headers: headers,
-        }
-      );
+      const response = await axios.get(`/wish/like/${item_id}`, {
+        headers: headers,
+      });
       dispatch(wishItemLikeRequestSuccess());
       getSearchResult(body, headers);
 
@@ -150,12 +145,9 @@ export function handleDislikeWishItem(body, item_id, headers) {
   return async (dispatch) => {
     dispatch(dislikeWishItem());
     try {
-      const response = await axios.delete(
-        `http://localhost:8080/wish/dislike/${item_id}`,
-        {
-          headers: headers,
-        }
-      );
+      const response = await axios.delete(`/wish/dislike/${item_id}`, {
+        headers: headers,
+      });
       dispatch(dislikeWishItemSuccess());
       getSearchResult(body, headers);
       console.log(response.data);

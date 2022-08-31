@@ -16,18 +16,14 @@ export function kakaoAuthRequest(code) {
 
     // API REQUEST
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_HOST}/auth/kakao/login`,
-        {
-          params: {
-            code: code,
-          },
-        }
-      );
+      const response = await axios.get(`/auth/kakao/login`, {
+        params: {
+          code: code,
+        },
+      });
       // SUCCEED
       dispatch(kakaoAuthSuccess(response.data));
       // 성공하면 사용자ID 받아오기
-      console.log(response.data);
       const ACCESS_TOKEN = response.data.accessToken;
 
       localStorage.setItem('token', 'Bearer ' + ACCESS_TOKEN); //예시로 로컬에 저장함
@@ -66,10 +62,7 @@ export function checkSessionRequest(headers) {
     dispatch(checkSession());
 
     try {
-      const response = await axios.post(
-        'http://localhost:8080/auth/kakao/authorize',
-        headers
-      );
+      const response = await axios.post('/auth/kakao/authorize', headers);
       dispatch(checkSessionSuccess(response.data)); //HTTP 틍신을 통해 userId을 빋이옴
     } catch (error) {
       dispatch(checkSessionFailure());
@@ -98,7 +91,7 @@ export function checkSessionFailure() {
 /* KAKAO Logout */
 export function kakaoLogoutRequest() {
   return async (dispatch) => {
-    const response = await axios.post('http://localhost:8080/kakaoLogout');
+    const response = await axios.post('/kakaoLogout');
     dispatch(kakaoLogout());
   };
 }
