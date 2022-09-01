@@ -20,6 +20,7 @@ import {
   Hr,
   Product,
   ProductDetail,
+  ImageBox,
   OtherImage,
   Details,
   ProductName,
@@ -82,7 +83,9 @@ const SearchResult = ({
                   <>
                     <Product key={index}>
                       <ProductDetail>
-                        <OtherImage src={product.photo}></OtherImage>
+                        <ImageBox>
+                          <OtherImage src={product.photo}></OtherImage>
+                        </ImageBox>
                         <Details>
                           <ProductName>
                             <b>Product:</b> {product.itemName}

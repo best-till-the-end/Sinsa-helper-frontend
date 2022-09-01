@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import My from '../../components/myPage/index';
 
 const MyPage = ({ getWishListRequest, wishList }) => {
+  console.log(wishList);
   useEffect(() => {
     const headers = {
       Authorization: localStorage.getItem('token'),

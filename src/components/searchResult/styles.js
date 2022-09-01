@@ -50,7 +50,7 @@ export const Image = styled.img`
   width: 85%;
   height: 80vh;
 
-  object-fit: full;
+  object-fit: fill;
 `;
 export const InfoContainter = styled.div`
   flex: 1;
@@ -121,10 +121,15 @@ export const ProductDetail = styled.div`
   flex: 2;
   display: flex;
 `;
-export const OtherImage = styled.img`
+export const ImageBox = styled.div`
   width: 200px;
-  height: 20vh;
-  object-fit: fill;
+  height: 30vh;
+  overflow: hidden;
+`;
+export const OtherImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 export const Details = styled.div`
   padding: 20px;
@@ -148,7 +153,7 @@ export const PriceDetail = styled.div`
   img {
     width: 30px;
     cursor: pointer;
-    objet-fit: fill;
+    objet-fit: cover;
   }
   a {
     border: 2px solid teal;

@@ -33,7 +33,6 @@ const SearchPage = ({
 
   const onClickSub = (title) => {
     dispatch(subChoose());
-    title.split('/').join('');
     setSub(title);
   };
 
@@ -56,7 +55,7 @@ const SearchPage = ({
     const headers = {
       Authorization: localStorage.getItem('token'),
     };
-    console.log(delivery, size, quality, delivery + size + quality);
+    console.log(main, sub, delivery, size, quality, delivery + size + quality);
     if (Number(delivery + size + quality) !== 100) {
       alert('세 수의 합은 100이여야 합니다.');
       return;

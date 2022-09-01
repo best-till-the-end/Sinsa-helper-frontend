@@ -65,6 +65,7 @@ export const Details = styled.div`
 `;
 export const WishInfo = styled.span``;
 export const ProductButton = styled.a`
+  width: 100px;
   padding: 5px;
   margin: 5px 0px;
   border: 1px solid teal;

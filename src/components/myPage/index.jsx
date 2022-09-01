@@ -34,17 +34,17 @@ const My = ({ wishList }) => {
                     <WishDetail>
                       <WishImage src={product.photo}></WishImage>
                       <Details>
-                        {/* <WishInfo>
+                        <WishInfo>
                           <b>상품명:</b> {product.itemName}
-                        </WishInfo> */}
-                        <WishInfo>
-                          <b>배송:</b> 30 점
                         </WishInfo>
                         <WishInfo>
-                          <b>사이즈:</b> 40 점
+                          <b>배송:</b> {product.deliveryScore}점
                         </WishInfo>
                         <WishInfo>
-                          <b>품질:</b> 50 점
+                          <b>사이즈:</b> {product.sizeScore} 점
+                        </WishInfo>
+                        <WishInfo>
+                          <b>품질:</b> {product.qualityScore}점
                         </WishInfo>
                         <ProductButton href={product.itemUrl}>
                           제품 보러가기
