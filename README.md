@@ -1,5 +1,6 @@
-# Getting Started with Create React App
+# SinsaHelper 프로젝트
 
+테스트중...
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

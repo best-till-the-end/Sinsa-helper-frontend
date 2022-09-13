@@ -12,7 +12,7 @@ const Button = styled.a`
   line-height: 71px;
   font-size: 22px;
   text-align: center;
-  color: #f0ffff;
+  color: black;
   cursor: pointer;
   background: linear-gradient(90deg, #ffdc3c, #fff064);
   text-decoration: none;
@@ -26,7 +26,7 @@ function KakaoAuth() {
 
   return (
     <div>
-      <Button id="kakaoLoginButton" href={KAKAO_AUTH_URL}>
+      <Button id='kakaoLoginButton' href={KAKAO_AUTH_URL}>
         카카오로 로그인하기
       </Button>
     </div>

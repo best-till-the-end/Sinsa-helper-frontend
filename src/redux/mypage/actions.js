@@ -2,20 +2,18 @@ import axios from 'axios';
 import * as types from './types';
 
 export function getWishListRequest(headers) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(getWishList());
 
-    return axios
-    .get('http://localhost:8080/wish/list', {
-      headers: headers,
-    })
-    .then((response) => {
-        dispatch(getWishListSuccess(response.data));
-    })
-    .catch((e) => {
-        dispatch(getWishListFailure());
-        console.log(e);
-    })
+    try {
+      const response = await axios.get('/wish/list', {
+        headers: headers,
+      });
+      dispatch(getWishListSuccess(response.data));
+    } catch (e) {
+      dispatch(getWishListFailure());
+      console.log(e);
+    }
   };
 }
 

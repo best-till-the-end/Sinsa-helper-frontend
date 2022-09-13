@@ -30,21 +30,19 @@ export function resetSubCategory(main) {
 }
 // getSearch
 export function getSearchResult(body, headers) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(getSearchRequest());
-    return axios
-      .get('http://localhost:8080/search/result', {
+    try {
+      const response = await axios.get(`/search/result`, {
         params: body,
         headers: headers,
-      })
-      .then((response) => {
-        dispatch(getSearchRequestSuccess(response.data));
-        console.log(response.data);
-      })
-      .catch((error) => {
-        dispatch(getSearchRequestFailure());
-        console.log(error);
       });
+      console.log(response, body, headers);
+      dispatch(getSearchRequestSuccess(response.data));
+      console.log(response.data);
+    } catch (error) {
+      dispatch(getSearchRequestFailure());
+    }
   };
 }
 
@@ -69,27 +67,22 @@ export function getSearchRequestFailure() {
 
 // postUrl
 export function postItemUrl(url, headers) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(postItemUrlRequest());
-    console.log(url);
-    console.log(headers);
     let body = {
-      url: url,
+      url,
     };
-    return axios
-      .get('http://localhost:8080/item', {
+    try {
+      const response = await axios.get('/item', {
         params: body,
         headers: headers,
-      })
-      .then((response) => {
-        dispatch(postItemUrlRequestSuccess(response.data));
-        console.log(response.data);
-      })
-
-      .catch((error) => {
-        dispatch(postItemUrlRequestFailure());
-        console.log(error);
       });
+      dispatch(postItemUrlRequestSuccess(response.data));
+      console.log(response.data);
+    } catch (error_1) {
+      dispatch(postItemUrlRequestFailure());
+      console.log(error_1);
+    }
   };
 }
 
@@ -112,24 +105,21 @@ export function postItemUrlRequestFailure() {
   };
 }
 export function handleLikeWishItem(body, item_id, headers) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(wishItemLikeRequest());
 
-    return axios
-      .get(`http://localhost:8080/wish/like/${item_id}`, {
+    try {
+      const response = await axios.get(`/wish/like/${item_id}`, {
         headers: headers,
-      })
-      .then((response) => {
-        dispatch(wishItemLikeRequestSuccess());
-        getSearchResult(body, headers);
-
-        console.log(response.data);
-      })
-
-      .catch((error) => {
-        dispatch(wishItemLikeRequestFailure());
-        console.log(error);
       });
+      dispatch(wishItemLikeRequestSuccess());
+      getSearchResult(body, headers);
+
+      console.log(response.data);
+    } catch (error) {
+      dispatch(wishItemLikeRequestFailure());
+      console.log(error);
+    }
   };
 }
 
@@ -152,21 +142,19 @@ export function wishItemLikeRequestFailure() {
 }
 
 export function handleDislikeWishItem(body, item_id, headers) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(dislikeWishItem());
-    return axios
-      .delete(`http://localhost:8080/wish/dislike/${item_id}`, {
+    try {
+      const response = await axios.delete(`/wish/dislike/${item_id}`, {
         headers: headers,
-      })
-      .then((response) => {
-        dispatch(dislikeWishItemSuccess());
-        getSearchResult(body, headers);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        dispatch(dislikeWishItemFailure());
-        console.log(error);
       });
+      dispatch(dislikeWishItemSuccess());
+      getSearchResult(body, headers);
+      console.log(response.data);
+    } catch (error) {
+      dispatch(dislikeWishItemFailure());
+      console.log(error);
+    }
   };
 }
 

@@ -10,32 +10,29 @@ import {
 } from './types';
 
 export function kakaoAuthRequest(code) {
-  return (dispatch) => {
+  return async (dispatch) => {
     // Inform Login API is starting
     dispatch(kakaoAuth());
 
     // API REQUEST
-    return axios
-      .get('http://localhost:8080/auth/kakao/login', {
+    try {
+      const response = await axios.get(`/auth/kakao/login`, {
         params: {
           code: code,
         },
-      })
-      .then((response) => {
-        // SUCCEED
-        dispatch(kakaoAuthSuccess(response.data));
-        // 성공하면 사용자ID 받아오기
-        console.log(response.data);
-        const ACCESS_TOKEN = response.data.accessToken;
-
-        localStorage.setItem('token', 'Bearer ' + ACCESS_TOKEN); //예시로 로컬에 저장함
-      })
-      .catch((error) => {
-        // FAILED
-        dispatch(kakaoAuthFailure());
-        console.log('소셜로그인 에러', error);
-        window.alert('로그인에 실패하였습니다.');
       });
+      // SUCCEED
+      dispatch(kakaoAuthSuccess(response.data));
+      // 성공하면 사용자ID 받아오기
+      const ACCESS_TOKEN = response.data.accessToken;
+
+      localStorage.setItem('token', 'Bearer ' + ACCESS_TOKEN); //예시로 로컬에 저장함
+    } catch (error) {
+      // FAILED
+      dispatch(kakaoAuthFailure());
+      console.log('소셜로그인 에러', error);
+      window.alert('로그인에 실패하였습니다.');
+    }
   };
 }
 
@@ -60,18 +57,16 @@ export function kakaoAuthFailure() {
 
 /* Check Session KAKAO User */
 export function checkSessionRequest(headers) {
-  return (dispatch) => {
+  return async (dispatch) => {
     // inform Get Status API is starting
     dispatch(checkSession());
 
-    return axios
-      .post('http://localhost:8080/auth/kakao/authorize', headers)
-      .then((response) => {
-        dispatch(checkSessionSuccess(response.data)); //HTTP 틍신을 통해 userId을 빋이옴
-      })
-      .catch((error) => {
-        dispatch(checkSessionFailure());
-      });
+    try {
+      const response = await axios.post('/auth/kakao/authorize', headers);
+      dispatch(checkSessionSuccess(response.data)); //HTTP 틍신을 통해 userId을 빋이옴
+    } catch (error) {
+      dispatch(checkSessionFailure());
+    }
   };
 }
 
@@ -95,10 +90,9 @@ export function checkSessionFailure() {
 
 /* KAKAO Logout */
 export function kakaoLogoutRequest() {
-  return (dispatch) => {
-    return axios.post('http://localhost:8080/kakaoLogout').then((response) => {
-      dispatch(kakaoLogout());
-    });
+  return async (dispatch) => {
+    const response = await axios.post('/kakaoLogout');
+    dispatch(kakaoLogout());
   };
 }
 

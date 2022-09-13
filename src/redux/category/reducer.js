@@ -34,7 +34,7 @@ export default function category(state = initialState, action) {
         case '상의':
           sub = top;
           break;
-        case '하의':
+        case '바지':
           sub = pants;
           break;
         default:
@@ -97,7 +97,7 @@ export default function category(state = initialState, action) {
         case '상의':
           resub = top;
           break;
-        case '하의':
+        case '바지':
           resub = pants;
           break;
         default:
@@ -180,20 +180,12 @@ export default function category(state = initialState, action) {
     case types.DISLIKE_WISH_ITEM:
       return {
         ...state,
-        status: {
-          ...state.status,
-          searchResult: action.searchResult,
-          like: {
-            ...state.status.like,
-          },
-        },
       };
     case types.DISLIKE_WISH_ITEM_SUCCESS:
       return {
         ...state,
         status: {
           ...state.status,
-          searchResult: action.searchResult,
           like: {
             ...state.status.like,
             liked: false,

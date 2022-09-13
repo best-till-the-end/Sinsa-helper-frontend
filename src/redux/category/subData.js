@@ -1,12 +1,12 @@
 export const top = [
   {
-    title: '반팔',
+    title: '반소매',
     id: 1,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20190327/996177/996177_3_big.jpg',
   },
   {
-    title: '긴팔',
+    title: '긴소매',
     id: 2,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20190327/996234/996234_3_big.jpg',
@@ -18,7 +18,7 @@ export const top = [
       'https://image.msscdn.net/images/goods_img/20190315/983819/983819_1_big.jpg',
   },
   {
-    title: '맨투맨',
+    title: '맨투맨/스웨트셔츠',
     id: 4,
     imageUrl:
       'https://image.msscdn.net/images/goods_img/20200910/1595528/1595528_4_big.jpg',
